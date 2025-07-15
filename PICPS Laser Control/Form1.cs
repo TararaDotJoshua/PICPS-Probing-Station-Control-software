@@ -1,8 +1,7 @@
-
 using System;
 using System.Windows.Forms;
 using NationalInstruments.NI4882;
-using System.Threading;
+using System.Text.RegularExpressions;
 
 namespace GPIBReaderWinForms
 {
@@ -36,7 +35,7 @@ namespace GPIBReaderWinForms
         private void InitializeTimer()
         {
             readTimer = new System.Windows.Forms.Timer();
-            readTimer.Interval = 25; // .025 seconds
+            readTimer.Interval = 250; // 0.25 seconds
             readTimer.Tick += ReadTimer_Tick;
         }
 
@@ -46,10 +45,18 @@ namespace GPIBReaderWinForms
             {
                 device.Write("POD?");
                 string response = device.ReadString().Trim();
-                var match = System.Text.RegularExpressions.Regex.Match(response, @"[-+]?\d+\.\d+");
-                lblPower.Text = match.Success ? $"{match.Value} dBm" : "Invalid response";
+                Match match = Regex.Match(response, @"[-+]?\d+\.\d+");
 
-
+                if (match.Success)
+                {
+                    float power = float.Parse(match.Value);
+                    lblPower.Text = $"{power:+0.000;-0.000} dBm";
+                    PowerLogger.Log(power);
+                }
+                else
+                {
+                    lblPower.Text = "Invalid response";
+                }
             }
             catch (Exception ex)
             {
@@ -67,16 +74,18 @@ namespace GPIBReaderWinForms
             readTimer.Stop();
         }
 
-        private void lblPower_Click(object sender, EventArgs e)
+        private void btnViewLog_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                PowerLogger.EnsureExists();
+                System.Diagnostics.Process.Start("notepad.exe", PowerLogger.GetPath());
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Unable to open log: " + ex.Message, "Error",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-
     }
 }

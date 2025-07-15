@@ -70,6 +70,7 @@ namespace GPIBReaderWinForms
             this.btnViewLog.Size = new System.Drawing.Size(125, 30);
             this.btnViewLog.TabIndex = 4;
             this.btnViewLog.Text = "View Log";
+            this.btnViewLog.Click += new System.EventHandler(this.btnViewLog_Click);
             // 
             // MainForm
             // 
