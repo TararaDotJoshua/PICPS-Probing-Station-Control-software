@@ -22,9 +22,9 @@ namespace GPIBReaderWinForms
             try
             {
                 device = new Device(0, 25, 0);
-                device.Write("C 2");  // Select Slot 2
-                device.Write("D 1");  // Select Input 1 (Device A)
-                device.Write("PF B"); // Set dBm output
+                device.Write("C 2");   // Select Slot 2
+                device.Write("D 1");   // Select Input 1 (Device A)
+                device.Write("PF B");  // Set dBm output
             }
             catch (Exception ex)
             {
@@ -34,8 +34,10 @@ namespace GPIBReaderWinForms
 
         private void InitializeTimer()
         {
-            readTimer = new System.Windows.Forms.Timer();
-            readTimer.Interval = 250; // 0.25 seconds
+            readTimer = new System.Windows.Forms.Timer
+            {
+                Interval = 5 // 0.005 seconds
+            };
             readTimer.Tick += ReadTimer_Tick;
         }
 
@@ -45,11 +47,10 @@ namespace GPIBReaderWinForms
             {
                 device.Write("POD?");
                 string response = device.ReadString().Trim();
-                Match match = Regex.Match(response, @"[-+]?\d+\.\d+");
+                var match = Regex.Match(response, @"[-+]?\d+\.\d+");
 
-                if (match.Success)
+                if (match.Success && float.TryParse(match.Value, out float power))
                 {
-                    float power = float.Parse(match.Value);
                     lblPower.Text = $"{power:+0.000;-0.000} dBm";
                     PowerLogger.Log(power);
                 }
@@ -66,12 +67,28 @@ namespace GPIBReaderWinForms
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            readTimer.Start();
+            try
+            {
+                device.Write(":OUTPut3:CHANnel3:STATE ON"); // Turn Channel 3 laser ON
+                readTimer.Start();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to start laser: " + ex.Message);
+            }
         }
 
         private void btnStop_Click(object sender, EventArgs e)
         {
-            readTimer.Stop();
+            try
+            {
+                readTimer.Stop();
+                device.Write(":OUTPut3:CHANnel3:STATE OFF"); // Turn Channel 3 laser OFF
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to stop laser: " + ex.Message);
+            }
         }
 
         private void btnViewLog_Click(object sender, EventArgs e)
@@ -86,6 +103,11 @@ namespace GPIBReaderWinForms
                 MessageBox.Show("Unable to open log: " + ex.Message, "Error",
                     MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
