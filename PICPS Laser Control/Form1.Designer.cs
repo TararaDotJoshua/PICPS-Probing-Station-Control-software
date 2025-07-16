@@ -23,6 +23,7 @@ namespace GPIBReaderWinForms
             this.btnViewLog = new System.Windows.Forms.Button();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.HomeAll = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
@@ -43,7 +44,6 @@ namespace GPIBReaderWinForms
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.HomeAll = new System.Windows.Forms.Button();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.SuspendLayout();
@@ -134,6 +134,16 @@ namespace GPIBReaderWinForms
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Motor Functions";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // HomeAll
+            // 
+            this.HomeAll.Location = new System.Drawing.Point(257, 230);
+            this.HomeAll.Name = "HomeAll";
+            this.HomeAll.Size = new System.Drawing.Size(106, 42);
+            this.HomeAll.TabIndex = 18;
+            this.HomeAll.Text = "Home All";
+            this.HomeAll.UseVisualStyleBackColor = true;
+            this.HomeAll.Click += new System.EventHandler(this.HomeAll_Click);
             // 
             // label6
             // 
@@ -286,6 +296,7 @@ namespace GPIBReaderWinForms
             this.button4.TabIndex = 3;
             this.button4.Text = "< < Z";
             this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
             // button3
             // 
@@ -323,19 +334,10 @@ namespace GPIBReaderWinForms
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(620, 295);
+            this.tabPage2.Size = new System.Drawing.Size(620, 377);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Auto-Alignment";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // HomeAll
-            // 
-            this.HomeAll.Location = new System.Drawing.Point(257, 230);
-            this.HomeAll.Name = "HomeAll";
-            this.HomeAll.Size = new System.Drawing.Size(106, 42);
-            this.HomeAll.TabIndex = 18;
-            this.HomeAll.Text = "Home All";
-            this.HomeAll.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 

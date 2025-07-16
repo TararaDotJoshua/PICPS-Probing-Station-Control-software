@@ -15,6 +15,8 @@ namespace GPIBReaderWinForms
             InitializeComponent();
             InitializeGPIB();
             InitializeTimer();
+            ZaberController.Initialize("COM3");
+
         }
 
         private void InitializeGPIB()
@@ -107,7 +109,7 @@ namespace GPIBReaderWinForms
 
         private void MainForm_Load(object sender, EventArgs e)
         {
-
+            
         }
 
         private void button1_Click(object sender, EventArgs e) // X-Left
@@ -137,13 +139,13 @@ namespace GPIBReaderWinForms
         private void button4_Click(object sender, EventArgs e) // Z-Out
         {
             if (double.TryParse(textBox1.Text, out double step))
-                ZaberController.MoveRelative(1, step);
+                ZaberController.MoveRelative(1, -step);
         }
 
         private void button3_Click(object sender, EventArgs e) // Z-In
         {
             if (double.TryParse(textBox1.Text, out double step))
-                ZaberController.MoveRelative(1, -step);
+                ZaberController.MoveRelative(1, step);
         }
 
         private void label4_Click(object sender, EventArgs e)
@@ -159,6 +161,9 @@ namespace GPIBReaderWinForms
         {
             ZaberController.HomeAll();
         }
-
+        private void button4_Click_1(object sender, EventArgs e) // Z-Out
+        {
+        
+        }
     }
 }

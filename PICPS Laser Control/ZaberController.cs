@@ -1,28 +1,31 @@
 ﻿using System;
-using System.Linq;
-using Zaber.Motion;
-using Zaber.Motion.Ascii;
+using System.IO.Ports;
+using System.Threading;
 
 namespace GPIBReaderWinForms
 {
     public static class ZaberController
     {
-        private static Connection connection;
-        private static Device device;
+        private static SerialPort port;
+        private const int StepsPerMm = 64000;
 
         public static void Initialize(string comPort)
         {
             try
             {
-                connection = Connection.OpenSerialPort(comPort);
-                var devices = connection.DetectDevices();
+                port = new SerialPort(comPort, 115200, Parity.None, 8, StopBits.One);
+                port.NewLine = "\r\n";
+                port.ReadTimeout = 1000;
+                port.WriteTimeout = 1000;
+                port.Open();
 
-                if (devices.Count() < 1)
-                    throw new Exception("No Zaber devices found.");
+                // Disable checksum
+                SendCommand("/0 set comm.checksum 0");
+                Thread.Sleep(50);
 
-                device = devices[0]; // Single controller with 3 axes
-
-                Console.WriteLine("Zaber initialized successfully.");
+                // Confirm communication
+                string response = SendCommand("/1 get pos");
+                Console.WriteLine("Zaber initialized.");
             }
             catch (Exception ex)
             {
@@ -30,70 +33,94 @@ namespace GPIBReaderWinForms
             }
         }
 
-        public static void MoveRelative(int axisNumber, double distanceMm)
+        public static void MoveRelative(int axis, double distanceMm)
         {
-            if (device == null) return;
-            if (axisNumber < 1 || axisNumber > 3) return;
+            if (!IsPortOpen()) return;
 
-            var axis = device.GetAxis(axisNumber);
-            axis?.MoveRelative(distanceMm, Units.Length_Millimetres);
+            int microsteps = (int)(distanceMm * StepsPerMm);
+            string command = $"/1 {axis} move rel {microsteps}";
+            SendCommand(command);
         }
 
-        public static void MoveAbsolute(int axisNumber, double positionMm)
+        public static void MoveAbsolute(int axis, double positionMm)
         {
-            if (device == null) return;
-            if (axisNumber < 1 || axisNumber > 3) return;
+            if (!IsPortOpen()) return;
 
-            var axis = device.GetAxis(axisNumber);
-            axis?.MoveAbsolute(positionMm, Units.Length_Millimetres);
+            int microsteps = (int)(positionMm * StepsPerMm);
+            string command = $"/1 {axis} move abs {microsteps}";
+            SendCommand(command);
         }
 
-        public static double GetPosition(int axisNumber)
+        public static double GetPosition(int axis)
         {
-            if (device == null || axisNumber < 1 || axisNumber > 3)
-                return double.NaN;
+            if (!IsPortOpen()) return double.NaN;
 
-            var axis = device.GetAxis(axisNumber);
-            return axis?.GetPosition(Units.Length_Millimetres) ?? double.NaN;
+            string response = SendCommand($"/1 {axis} get pos");
+            if (response == null) return double.NaN;
+
+            string[] parts = response.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            if (parts.Length >= 6)
+            {
+                int pos;
+                if (int.TryParse(parts[5], out pos))
+                {
+                    double mm = pos / (double)StepsPerMm;
+                    Console.WriteLine($"Axis {axis} position: {mm:F3} mm");
+                    return mm;
+                }
+            }
+
+            Console.WriteLine("Failed to parse position.");
+            return double.NaN;
         }
+
         public static void HomeAll()
         {
-            if (device != null)
+            if (!IsPortOpen()) return;
+
+            Console.WriteLine("Homing all axes...");
+            for (int i = 1; i <= 3; i++)
             {
-                Console.WriteLine("Homing all axes...");
-
-                for (int i = 1; i <= 3; i++)
-                {
-                    var axis = device.GetAxis(i);
-                    axis.Home(); // Start homing
-                }
-
-                // Wait for all axes to complete homing
-                bool anyBusy;
-                do
-                {
-                    anyBusy = false;
-                    for (int i = 1; i <= 3; i++)
-                    {
-                        var axis = device.GetAxis(i);
-                        if (axis.IsBusy())
-                        {
-                            anyBusy = true;
-                            break;
-                        }
-                    }
-                    System.Threading.Thread.Sleep(100); // Small delay before rechecking
-                } while (anyBusy);
-
-                Console.WriteLine("All axes homed.");
+                SendCommand($"/1 {i} home");
+                Thread.Sleep(50);
             }
-            else
+
+            Thread.Sleep(5000); // crude wait
+            Console.WriteLine("All axes homed.");
+        }
+
+        private static string SendCommand(string command)
+        {
+            try
             {
-                Console.WriteLine("Device not initialized.");
+                port.DiscardInBuffer();
+                port.WriteLine(command);
+                Console.WriteLine($"Sent: {command}");
+
+                string response = port.ReadLine();
+                Console.WriteLine($"Recv: {response}");
+                return response;
+            }
+            catch (TimeoutException)
+            {
+                Console.WriteLine("Timeout waiting for response.");
+                return null;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Serial error: " + ex.Message);
+                return null;
             }
         }
 
-
-
+        private static bool IsPortOpen()
+        {
+            if (port == null || !port.IsOpen)
+            {
+                Console.WriteLine("Zaber serial port is not open.");
+                return false;
+            }
+            return true;
+        }
     }
 }
