@@ -109,5 +109,56 @@ namespace GPIBReaderWinForms
         {
 
         }
+
+        private void button1_Click(object sender, EventArgs e) // X-Left
+        {
+            if (double.TryParse(textBox1.Text, out double step))
+                ZaberController.MoveRelative(2, -step);
+        }
+
+        private void button2_Click(object sender, EventArgs e) // X-Right
+        {
+            if (double.TryParse(textBox1.Text, out double step))
+                ZaberController.MoveRelative(2, step);
+        }
+
+        private void button6_Click(object sender, EventArgs e) // Y-Up
+        {
+            if (double.TryParse(textBox1.Text, out double step))
+                ZaberController.MoveRelative(3, step);
+        }
+
+        private void button5_Click(object sender, EventArgs e) // Y-Down
+        {
+            if (double.TryParse(textBox1.Text, out double step))
+                ZaberController.MoveRelative(3, -step);
+        }
+
+        private void button4_Click(object sender, EventArgs e) // Z-Out
+        {
+            if (double.TryParse(textBox1.Text, out double step))
+                ZaberController.MoveRelative(1, step);
+        }
+
+        private void button3_Click(object sender, EventArgs e) // Z-In
+        {
+            if (double.TryParse(textBox1.Text, out double step))
+                ZaberController.MoveRelative(1, -step);
+        }
+
+        private void label4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void HomeAll_Click(object sender, EventArgs e)
+        {
+            ZaberController.HomeAll();
+        }
+
     }
 }
