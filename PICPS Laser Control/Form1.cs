@@ -2,6 +2,9 @@ using System;
 using System.Windows.Forms;
 using NationalInstruments.NI4882;
 using System.Text.RegularExpressions;
+using Thorlabs.MotionControl.DeviceManagerCLI;
+using Thorlabs.MotionControl.GenericMotorCLI;
+using Thorlabs.MotionControl.KCube.DCServoCLI;
 
 namespace GPIBReaderWinForms
 {
@@ -9,7 +12,7 @@ namespace GPIBReaderWinForms
     {
         private Device device;
         private System.Windows.Forms.Timer readTimer;
-
+        
         public MainForm()
         {
             InitializeComponent();
@@ -147,7 +150,6 @@ namespace GPIBReaderWinForms
             if (double.TryParse(textBox1.Text, out double step))
                 ZaberController.MoveRelative(1, step);
         }
-
         private void label4_Click(object sender, EventArgs e)
         {
 
@@ -160,10 +162,67 @@ namespace GPIBReaderWinForms
         private void HomeAll_Click(object sender, EventArgs e)
         {
             ZaberController.HomeAll();
+            // Thorlabs homing
+            KCubeController.Home("26004431"); // Z
+            KCubeController.Home("26004430"); // X
+            KCubeController.Home("26004427"); // Y
         }
-        private void button4_Click_1(object sender, EventArgs e) // Z-Out
+        private void button4_Click_1(object sender, EventArgs e)
         {
         
         }
+
+        private void button8_Click(object sender, EventArgs e) // Z+
+        {
+            if (decimal.TryParse(textBox1.Text, out decimal stepSize))
+                KCubeController.MoveRelative("26004431", stepSize);
+            else
+                MessageBox.Show("Invalid step size.");
+        }
+
+        private void button7_Click(object sender, EventArgs e) // Z-
+        {
+            if (decimal.TryParse(textBox1.Text, out decimal stepSize))
+                KCubeController.MoveRelative("26004431", -stepSize);
+            else
+                MessageBox.Show("Invalid step size.");
+        }
+
+        // X+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(textBox1.Text, out decimal stepSize))
+                KCubeController.MoveRelative("26004430", stepSize);
+            else
+                MessageBox.Show("Invalid step size.");
+        }
+
+        // X-
+        private void button9_Click(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(textBox1.Text, out decimal stepSize))
+                KCubeController.MoveRelative("26004430", -stepSize);
+            else
+                MessageBox.Show("Invalid step size.");
+        }
+
+        // Y+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(textBox1.Text, out decimal stepSize))
+                KCubeController.MoveRelative("26004427", stepSize);
+            else
+                MessageBox.Show("Invalid step size.");
+        }
+
+        // Y-
+        private void button11_Click(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(textBox1.Text, out decimal stepSize))
+                KCubeController.MoveRelative("26004427", -stepSize);
+            else
+                MessageBox.Show("Invalid step size.");
+        }
+
     }
 }

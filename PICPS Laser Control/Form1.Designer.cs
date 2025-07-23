@@ -16,6 +16,7 @@ namespace GPIBReaderWinForms
 
         private void InitializeComponent()
         {
+
             this.lblPower = new System.Windows.Forms.Label();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
@@ -229,6 +230,7 @@ namespace GPIBReaderWinForms
             this.button12.TabIndex = 10;
             this.button12.Text = "^\r\n^\r\nY";
             this.button12.UseVisualStyleBackColor = true;
+            this.button12.Click += new System.EventHandler(this.button12_Click);
             // 
             // button7
             // 
