@@ -85,7 +85,7 @@ namespace GPIBReaderWinForms
                 Thread.Sleep(50);
             }
 
-            Thread.Sleep(5000); // crude wait
+            Thread.Sleep(5000);
             Console.WriteLine("All axes homed.");
         }
 

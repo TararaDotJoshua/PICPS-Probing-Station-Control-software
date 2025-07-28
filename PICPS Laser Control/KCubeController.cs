@@ -16,12 +16,12 @@ public static class KCubeController
 
         foreach (string serial in serialNumbers)
         {
-            KCubeDCServo device = KCubeDCServo.CreateKCubeDCServo(serial); // Fixed instantiation
+            KCubeDCServo device = KCubeDCServo.CreateKCubeDCServo(serial);
             device.Connect(serial);
             device.WaitForSettingsInitialized(5000);
             device.StartPolling(250);
             device.EnableDevice();
-            device.Home(60000); // Optional: home on startup
+            device.Home(60000);
             devices[serial] = device;
         }
     }
@@ -31,7 +31,7 @@ public static class KCubeController
         KCubeDCServo device;
         if (devices.TryGetValue(serial, out device))
         {
-            device.MoveRelative((MotorDirection.Forward), (decimal)(double)mm, 1000); // Updated method call
+            device.MoveRelative((MotorDirection.Forward), (decimal)(double)mm, 1000);
         }
     }
 
