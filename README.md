@@ -10,12 +10,15 @@ When deploying this program onto a new system ensure:
  - Power reading (Form1.cs)
     - Program connects to ANDO frame via NI 488.2 GPIB
     - When laser is active, powermeter readout in dBm is shown on main screen
+      
+ - GUI Interactions (Form1.cs)
+    - Definition of button/textfield interactions and calls to functions
 
  - Logging power values (Powerlogger.cs)
     - Powerlogger takes power output and adds timestamps and logs them to a .txt file Accessible by the view log button
   
- - Thorlabs Motion (KCubeController.cs)
+ - Thorlabs Motion Functions (KCubeController.cs)
     - Contains all of the logic within the Thorlabs Motion System
 
- - Zaber Motion (ZaberController.cs)
+ - Zaber Motion Functions (ZaberController.cs)
     - Contains all of the logic within the Zaber Motion System
