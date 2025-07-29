@@ -1,12 +1,12 @@
 ----[WIP NOT FINAL]----
-Project .dll references:
+**Project .dll references:**
 NationalInstruments.NI4882
 Thorlabs.MotionControl.DeviceManagerCLI
 Thorlabs.MotionControl.KCube.StepperMotor
 Thorlabs.MotionControl.GenericMotorCLI
 
-Native .dll references (bin/x64/debug/):
+**Native .dll references (bin/x64/debug/):**
 
 
-Project Get-nu references:
+**Project Get-nu references:**
 Zaber
