@@ -2,7 +2,7 @@ When deploying this program onto a new system ensure:
   1. System has thorlabs kinesis installed
   2. System has Zaber Launcher installed
   3. System has NI 488.2 driver installed
-  4. Check REFRENCES.md for all required .dll
+  4. Check REFERENCES.md for all required .dll
   5. GitNu package Zaber is installed
   6. All references are present
   7. All COM ports match their respective components (Only Zaber requires COM port def.)
