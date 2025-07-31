@@ -358,7 +358,27 @@ namespace GPIBReaderWinForms
             this.ResumeLayout(false);
             this.PerformLayout();
 
+
+            this.button1.Click += new System.EventHandler(this.button1_Click); // X+
+            this.button2.Click += new System.EventHandler(this.button2_Click); // X-
+            this.button3.Click += new System.EventHandler(this.button3_Click); // Z+
+            this.button4.Click += new System.EventHandler(this.button4_Click); // Z-
+            this.button5.Click += new System.EventHandler(this.button5_Click); // Y-
+            this.button6.Click += new System.EventHandler(this.button6_Click); // Y+
+            this.button7.Click += new System.EventHandler(this.button7_Click); // Z- (Thorlabs)
+            this.button8.Click += new System.EventHandler(this.button8_Click); // Z+ (Thorlabs)
+            this.button9.Click += new System.EventHandler(this.button9_Click); // X- (Thorlabs)
+            this.button10.Click += new System.EventHandler(this.button10_Click); // X+ (Thorlabs)
+            this.button11.Click += new System.EventHandler(this.button11_Click); // Y- (Thorlabs)
+            this.button12.Click += new System.EventHandler(this.button12_Click); // Y+ (Thorlabs)
+            this.HomeAll.Click += new System.EventHandler(this.HomeAll_Click);
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
+            this.btnViewLog.Click += new System.EventHandler(this.btnViewLog_Click);
+
         }
+
+        
 
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnViewLog;

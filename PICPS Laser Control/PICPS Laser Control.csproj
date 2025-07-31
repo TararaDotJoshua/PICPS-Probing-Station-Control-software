@@ -77,8 +77,8 @@
     <Reference Include="ThorLabs.MotionControl.KCube.DCServoCLI">
       <HintPath>..\..\..\..\..\..\..\..\Program Files\Thorlabs\Kinesis\ThorLabs.MotionControl.KCube.DCServoCLI.dll</HintPath>
     </Reference>
-    <Reference Include="Zaber.Motion">
-      <HintPath>..\..\..\..\..\Documents\dll\Zaber.Motion.dll</HintPath>
+    <Reference Include="Thorlabs.MotionControl.KCube.StepperMotorCLI">
+      <HintPath>..\..\..\..\..\..\..\Program Files\Thorlabs\Kinesis\Thorlabs.MotionControl.KCube.StepperMotorCLI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

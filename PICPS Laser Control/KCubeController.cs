@@ -1,75 +1,74 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Threading;
 using Thorlabs.MotionControl.DeviceManagerCLI;
 using Thorlabs.MotionControl.GenericMotorCLI;
-using Thorlabs.MotionControl.KCube.DCServoCLI;
+using Thorlabs.MotionControl.KCube.StepperMotorCLI;
+using Thorlabs.MotionControl.KCube.StepperMotorCLI.Native;
 
 public static class KCubeController
 {
-    private static Dictionary<string, KCubeDCServo> devices = new Dictionary<string, KCubeDCServo>();
-
-    public static void Initialize()
-    {
-        DeviceManagerCLI.BuildDeviceList();
-        List<string> serialNumbers = DeviceManagerCLI.GetDeviceList(KCubeDCServo.DevicePrefix);
-
-        foreach (string serial in serialNumbers)
-        {
-            KCubeDCServo device = KCubeDCServo.CreateKCubeDCServo(serial);
-            device.Connect(serial);
-            device.WaitForSettingsInitialized(5000);
-            device.StartPolling(250);
-            device.EnableDevice();
-            device.Home(60000);
-            devices[serial] = device;
-        }
-    }
-
-    public static void MoveRelative(string serial, decimal mm)
-    {
-        KCubeDCServo device;
-        if (devices.TryGetValue(serial, out device))
-        {
-            device.MoveRelative((MotorDirection.Forward), (decimal)(double)mm, 1000);
-        }
-    }
-
-    public static void MoveAbsolute(string serial, decimal mm)
-    {
-        KCubeDCServo device;
-        if (devices.TryGetValue(serial, out device))
-        {
-            device.SetMoveAbsolutePosition(mm); // Set the target position
-            device.MoveAbsolute(1000); // Execute the move with timeout
-        }
-    }
-
     public static void Home(string serial)
     {
-        KCubeDCServo device;
-        if (devices.TryGetValue(serial, out device))
+        try
         {
-            device.Home(60000);
+            DeviceManagerCLI.BuildDeviceList();
+
+            using (KCubeStepper device = KCubeStepper.CreateKCubeStepper(serial))
+            {
+                device.Connect(serial);
+                if (!device.IsSettingsInitialized())
+                    device.WaitForSettingsInitialized(5000);
+
+                device.StartPolling(250);
+                System.Threading.Thread.Sleep(500);
+                device.EnableDevice();
+                System.Threading.Thread.Sleep(500);
+
+                var config = device.LoadMotorConfiguration(serial);
+                Console.WriteLine($"Homing {serial} ({config.DeviceSettingsName})...");
+                device.Home(60000);
+                System.Threading.Thread.Sleep(2000);
+
+
+                device.StopPolling();
+                device.Disconnect(true);
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error homing {serial}: {ex.Message}");
         }
     }
 
-    public static double GetPosition(string serial)
+    public static void MoveRelative(string serial, decimal distance_mm)
     {
-        KCubeDCServo device;
-        if (devices.TryGetValue(serial, out device))
+        try
         {
-            return (double)device.Position;
-        }
-        return double.NaN;
-    }
+            using (KCubeStepper device = KCubeStepper.CreateKCubeStepper(serial))
+            {
+                device.Connect(serial);
+                if (!device.IsSettingsInitialized())
+                    device.WaitForSettingsInitialized(5000);
 
-    public static void Stop(string serial)
-    {
-        KCubeDCServo device;
-        if (devices.TryGetValue(serial, out device))
+                device.StartPolling(250);
+                System.Threading.Thread.Sleep(500);
+                device.EnableDevice();
+                System.Threading.Thread.Sleep(500);
+
+                var config = device.LoadMotorConfiguration(serial);
+
+                // Convert mm to device units (assuming 64000 steps/mm)
+                int stepDistance = (int)(distance_mm * 64000);
+                device.MoveRelative(stepDistance); 
+                System.Threading.Thread.Sleep(2000);
+
+
+                device.StopPolling();
+                device.Disconnect(true);
+            }
+        }
+        catch (Exception ex)
         {
-            device.Stop(1000);
+            Console.WriteLine($"Error moving {serial}: {ex.Message}");
         }
     }
 }
