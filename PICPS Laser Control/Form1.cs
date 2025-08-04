@@ -11,6 +11,8 @@ using Thorlabs.MotionControl.GenericMotorCLI.ControlParameters;
 using Thorlabs.MotionControl.GenericMotorCLI.KCubeMotor;
 using Thorlabs.MotionControl.GenericMotorCLI.Settings;
 using Thorlabs.MotionControl.KCube.StepperMotorCLI;
+using GPIBReaderWinForms;
+
 
 namespace GPIBReaderWinForms
 {
@@ -136,6 +138,7 @@ namespace GPIBReaderWinForms
             catch (Exception ex)
             {
                 MessageBox.Show("Error initializing GPIB device: " + ex.Message);
+
             }
         }
 
@@ -173,7 +176,7 @@ namespace GPIBReaderWinForms
         {
             try
             {
-                device.Write(":OUTPut3:CHANnel3:STATE ON");
+                //device.Write(":OUTPut3:CHANnel3:STATE ON");
                 readTimer.Start();
             }
             catch (Exception ex)
@@ -187,7 +190,7 @@ namespace GPIBReaderWinForms
             try
             {
                 readTimer.Stop();
-                device.Write(":OUTPut3:CHANnel3:STATE OFF");
+                //device.Write(":OUTPut3:CHANnel3:STATE OFF");
             }
             catch (Exception ex)
             {
@@ -238,6 +241,52 @@ namespace GPIBReaderWinForms
 
             zMotor?.StopPolling();
             zMotor?.Disconnect();
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+        private void RunScan_Click(object sender, EventArgs e)
+        {
+            if (!double.TryParse(XSize.Text, out double rangeX) ||
+                !double.TryParse(YSize.Text, out double rangeY) ||
+                !int.TryParse(XDataPoints.Text, out int pointsX) ||
+                !int.TryParse(YDataPoints.Text, out int pointsY))
+            {
+                MessageBox.Show("Invalid scan parameters.");
+                return;
+            }
+
+            var scanner = new ZaberSpiralScanner(device, rangeX, rangeY, pointsX, pointsY, elementHostHelix);
+            scanner.Execute();
+            MessageBox.Show("Zaber scan complete. Power values logged.");
+        }
+
+        private void RunScan_Click_1(object sender, EventArgs e)
+        {
+            if (!double.TryParse(XSize.Text, out double rangeX) ||
+                !double.TryParse(YSize.Text, out double rangeY) ||
+                !int.TryParse(XDataPoints.Text, out int pointsX) ||
+                !int.TryParse(YDataPoints.Text, out int pointsY))
+            {
+                MessageBox.Show("Invalid scan parameters.");
+                return;
+            }
+
+            var scanner = new ZaberSpiralScanner(device, rangeX, rangeY, pointsX, pointsY, elementHostHelix);
+            scanner.Execute();
+            MessageBox.Show("Zaber scan complete. Power values logged.");
+        }
+
+        private void elementHost1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
+        {
+
         }
     }
 }
