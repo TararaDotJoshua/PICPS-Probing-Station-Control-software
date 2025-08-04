@@ -3,7 +3,6 @@ using Thorlabs.MotionControl.DeviceManagerCLI;
 using Thorlabs.MotionControl.GenericMotorCLI;
 using Thorlabs.MotionControl.KCube.StepperMotorCLI;
 using Thorlabs.MotionControl.KCube.StepperMotorCLI.Native;
-
 public static class KCubeController
 {
     public static void Home(string serial)
