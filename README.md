@@ -23,3 +23,6 @@ When deploying this program onto a new system ensure:
 
  - Zaber Motion Functions (ZaberController.cs)
     - Contains all of the logic within the Zaber Motion System
+      
+- Auto Alignment (ZaberSpiralScanner.cs)
+    - Contains all of the automation code for the zaber stage
