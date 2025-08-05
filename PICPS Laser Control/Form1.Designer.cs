@@ -212,6 +212,7 @@ namespace GPIBReaderWinForms
             this.label3.Size = new System.Drawing.Size(117, 17);
             this.label3.TabIndex = 13;
             this.label3.Text = "ThorLabs Stages";
+            this.label3.Click += new System.EventHandler(this.label3_Click);
             // 
             // label2
             // 
@@ -222,6 +223,7 @@ namespace GPIBReaderWinForms
             this.label2.Size = new System.Drawing.Size(94, 17);
             this.label2.TabIndex = 6;
             this.label2.Text = "Zaber Stages";
+            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // panel1
             // 

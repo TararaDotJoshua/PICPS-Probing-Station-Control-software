@@ -89,6 +89,27 @@ namespace GPIBReaderWinForms
             Console.WriteLine("All axes homed.");
         }
 
+        public static void HomeAxis(int axis)
+        {
+            if (port != null && port.IsOpen)
+            {
+                port.WriteLine($"/1 {axis} home");
+                Thread.Sleep(200); // Allow buffer time
+                WaitUntilIdle(axis);
+            }
+        }
+
+        private static void WaitUntilIdle(int axis)
+        {
+            string response = "";
+            do
+            {
+                port.WriteLine($"/1 {axis} get pos");
+                response = port.ReadLine();
+            }
+            while (!response.Contains("IDLE") && !response.Contains("OK")); // crude idle check
+        }
+
         private static string SendCommand(string command)
         {
             try
@@ -99,6 +120,17 @@ namespace GPIBReaderWinForms
 
                 string response = port.ReadLine();
                 Console.WriteLine($"Recv: {response}");
+
+                // If the command was a motion command, query and print position
+                if (command.Contains("move"))
+                {
+                    for (int axis = 2; axis <= 3; axis++)
+                    {
+                        double pos = GetPosition(axis);
+                        Console.WriteLine($"  Axis {axis} pos: {pos:F3} mm");
+                    }
+                }
+
                 return response;
             }
             catch (TimeoutException)
@@ -112,6 +144,7 @@ namespace GPIBReaderWinForms
                 return null;
             }
         }
+
 
         private static bool IsPortOpen()
         {

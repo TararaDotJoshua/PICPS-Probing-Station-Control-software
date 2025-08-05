@@ -30,18 +30,32 @@ namespace GPIBReaderWinForms
             stepsY = pointsY;
             elementHost = helixHost;
 
-            startX = -rangeXmm / 2.0;
-            endX = rangeXmm / 2.0;
-            startY = -rangeYmm / 2.0;
-            endY = rangeYmm / 2.0;
+            // Query current X (axis 2) and Y (axis 3) positions from Zaber
+            double centerX = ZaberController.GetPosition(2);  // X axis
+            double centerY = ZaberController.GetPosition(3);  // Y axis
+
+            if (double.IsNaN(centerX) || double.IsNaN(centerY))
+            {
+                Console.WriteLine("❌ Failed to get current probe position. Aborting scan.");
+                throw new InvalidOperationException("Cannot determine probe center.");
+            }
+
+            // Define scan bounds centered on current position
+            startX = centerX - rangeXmm / 2.0;
+            endX = centerX + rangeXmm / 2.0;
+            startY = centerY - rangeYmm / 2.0;
+            endY = centerY + rangeYmm / 2.0;
 
             stepX = rangeXmm / (pointsX - 1);
             stepY = rangeYmm / (pointsY - 1);
 
-            Console.WriteLine($"Scanner initialized with {stepsX} x {stepsY} points.");
-            Console.WriteLine($"X range: {startX} to {endX} mm, StepX: {stepX} mm");
-            Console.WriteLine($"Y range: {startY} to {endY} mm, StepY: {stepY} mm");
+            Console.WriteLine("🛠️  Zaber Spiral Scanner Initialized (centered on current probe position)");
+            Console.WriteLine($"  Center: ({centerX:F3}, {centerY:F3}) mm");
+            Console.WriteLine($"  X range: {startX:F3} to {endX:F3} mm, StepX: {stepX:F3} mm");
+            Console.WriteLine($"  Y range: {startY:F3} to {endY:F3} mm, StepY: {stepY:F3} mm");
         }
+
+
 
         public void Execute()
         {
@@ -153,8 +167,8 @@ namespace GPIBReaderWinForms
 
                     var sphere = new SphereVisual3D
                     {
-                        Radius = 0.5,
-                        Center = new Media3DPoint3D(x, y, power),
+                        Radius = stepX/2.0,
+                        Center = new Media3DPoint3D(x, y, 0),
                         Material = MaterialHelper.CreateMaterial(color)
                     };
                     viewport.Children.Add(sphere);

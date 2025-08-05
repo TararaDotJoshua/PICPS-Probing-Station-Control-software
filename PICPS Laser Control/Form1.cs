@@ -1,8 +1,10 @@
+using GPIBReaderWinForms;
 using NationalInstruments.NI4882;
 using System;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 using Thorlabs.MotionControl.DeviceManagerCLI;
 using Thorlabs.MotionControl.GenericMotorCLI;
@@ -11,8 +13,6 @@ using Thorlabs.MotionControl.GenericMotorCLI.ControlParameters;
 using Thorlabs.MotionControl.GenericMotorCLI.KCubeMotor;
 using Thorlabs.MotionControl.GenericMotorCLI.Settings;
 using Thorlabs.MotionControl.KCube.StepperMotorCLI;
-using GPIBReaderWinForms;
-
 
 namespace GPIBReaderWinForms
 {
@@ -138,7 +138,6 @@ namespace GPIBReaderWinForms
             catch (Exception ex)
             {
                 MessageBox.Show("Error initializing GPIB device: " + ex.Message);
-
             }
         }
 
@@ -176,7 +175,6 @@ namespace GPIBReaderWinForms
         {
             try
             {
-                //device.Write(":OUTPut3:CHANnel3:STATE ON");
                 readTimer.Start();
             }
             catch (Exception ex)
@@ -190,7 +188,6 @@ namespace GPIBReaderWinForms
             try
             {
                 readTimer.Stop();
-                //device.Write(":OUTPut3:CHANnel3:STATE OFF");
             }
             catch (Exception ex)
             {
@@ -220,6 +217,7 @@ namespace GPIBReaderWinForms
         private void button5_Click(object sender, EventArgs e) => ZaberController.MoveRelative(3, -GetStep());
         private void button4_Click(object sender, EventArgs e) => ZaberController.MoveRelative(1, -GetStep());
         private void button3_Click(object sender, EventArgs e) => ZaberController.MoveRelative(1, GetStep());
+
         private double GetStep()
         {
             if (double.TryParse(textBox1.Text, out double step))
@@ -227,6 +225,7 @@ namespace GPIBReaderWinForms
             MessageBox.Show("Invalid step size.");
             return 0;
         }
+
         private void button4_Click_1(object sender, EventArgs e) { }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -234,24 +233,18 @@ namespace GPIBReaderWinForms
             base.OnFormClosing(e);
 
             xMotor?.StopPolling();
-            xMotor?.Disconnect();
+            xMotor?.Disconnect(false);
 
             yMotor?.StopPolling();
-            yMotor?.Disconnect();
+            yMotor?.Disconnect(false);
 
             zMotor?.StopPolling();
-            zMotor?.Disconnect();
+            zMotor?.Disconnect(false);
         }
 
-        private void textBox2_TextChanged(object sender, EventArgs e)
-        {
+        private void textBox2_TextChanged(object sender, EventArgs e) { }
+        private void label7_Click(object sender, EventArgs e) { }
 
-        }
-
-        private void label7_Click(object sender, EventArgs e)
-        {
-
-        }
         private void RunScan_Click(object sender, EventArgs e)
         {
             if (!double.TryParse(XSize.Text, out double rangeX) ||
@@ -270,23 +263,43 @@ namespace GPIBReaderWinForms
 
         private void RunScan_Click_1(object sender, EventArgs e)
         {
-            if (!double.TryParse(XSize.Text, out double rangeX) ||
-                !double.TryParse(YSize.Text, out double rangeY) ||
-                !int.TryParse(XDataPoints.Text, out int pointsX) ||
-                !int.TryParse(YDataPoints.Text, out int pointsY))
-            {
-                MessageBox.Show("Invalid scan parameters.");
-                return;
-            }
-
-            var scanner = new ZaberSpiralScanner(device, rangeX, rangeY, pointsX, pointsY, elementHostHelix);
-            scanner.Execute();
-            MessageBox.Show("Zaber scan complete. Power values logged.");
+            RunScan_Click(sender, e);
         }
 
-        private void elementHost1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
-        {
+        private void elementHost1_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e) { }
 
+        private async void label2_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    ZaberController.HomeAxis(1);
+                    ZaberController.HomeAxis(2);
+                    ZaberController.HomeAxis(3);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Zaber homing failed: {ex.Message}");
+                }
+            });
+        }
+
+        private async void label3_Click(object sender, EventArgs e)
+        {
+            await Task.Run(() =>
+            {
+                try
+                {
+                    xMotor.Home(60000);
+                    yMotor.Home(60000);
+                    zMotor.Home(60000);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Thorlabs homing failed: {ex.Message}");
+                }
+            });
         }
     }
 }
