@@ -26,6 +26,7 @@ namespace GPIBReaderWinForms
             this.btnStop = new GPIBReaderWinForms.ModernButton();
             this.btnViewLog = new GPIBReaderWinForms.ModernButton();
             this.modernPanel1 = new GPIBReaderWinForms.ModernPanel();
+            this.label3 = new System.Windows.Forms.Label();
             this.HomeAll = new GPIBReaderWinForms.ModernButton();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -39,6 +40,7 @@ namespace GPIBReaderWinForms
             this.button2 = new GPIBReaderWinForms.ModernButton();
             this.button1 = new GPIBReaderWinForms.ModernButton();
             this.modernPanel3 = new GPIBReaderWinForms.ModernPanel();
+            this.label17 = new System.Windows.Forms.Label();
             this.button11 = new GPIBReaderWinForms.ModernButton();
             this.button12 = new GPIBReaderWinForms.ModernButton();
             this.button7 = new GPIBReaderWinForms.ModernButton();
@@ -55,7 +57,6 @@ namespace GPIBReaderWinForms
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.btnFitToScreen = new GPIBReaderWinForms.ModernButton();
-            this.JogToHigh = new GPIBReaderWinForms.ModernButton();
             this.StopScan = new GPIBReaderWinForms.ModernButton();
             this.RunScan = new GPIBReaderWinForms.ModernButton();
             this.label11 = new System.Windows.Forms.Label();
@@ -67,8 +68,6 @@ namespace GPIBReaderWinForms
             this.YDataPoints = new GPIBReaderWinForms.ModernTextBox();
             this.YSize = new GPIBReaderWinForms.ModernTextBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -167,12 +166,12 @@ namespace GPIBReaderWinForms
             // btnStart
             // 
             this.btnStart.BackColor = System.Drawing.Color.Transparent;
-            this.btnStart.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.btnStart.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.btnStart.BorderRadius = 8;
             this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStart.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.btnStart.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.btnStart.Location = new System.Drawing.Point(32, 177);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(140, 45);
@@ -184,12 +183,12 @@ namespace GPIBReaderWinForms
             // btnStop
             // 
             this.btnStop.BackColor = System.Drawing.Color.Transparent;
-            this.btnStop.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.btnStop.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnStop.BorderRadius = 8;
             this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnStop.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnStop.ForeColor = System.Drawing.Color.White;
-            this.btnStop.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
+            this.btnStop.ForeColor = System.Drawing.Color.Gray;
+            this.btnStop.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.btnStop.Location = new System.Drawing.Point(32, 232);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(140, 45);
@@ -232,6 +231,17 @@ namespace GPIBReaderWinForms
             this.modernPanel1.SeamlessMode = false;
             this.modernPanel1.Size = new System.Drawing.Size(241, 416);
             this.modernPanel1.TabIndex = 20;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label3.Location = new System.Drawing.Point(75, 32);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(84, 25);
+            this.label3.TabIndex = 12;
+            this.label3.Text = "Settings";
             // 
             // HomeAll
             // 
@@ -323,12 +333,12 @@ namespace GPIBReaderWinForms
             // button5
             // 
             this.button5.BackColor = System.Drawing.Color.Transparent;
-            this.button5.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.button5.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button5.BorderRadius = 8;
             this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.button5.ForeColor = System.Drawing.Color.White;
-            this.button5.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
+            this.button5.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.button5.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button5.Location = new System.Drawing.Point(38, 262);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(60, 80);
@@ -340,12 +350,12 @@ namespace GPIBReaderWinForms
             // button6
             // 
             this.button6.BackColor = System.Drawing.Color.Transparent;
-            this.button6.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.button6.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button6.BorderRadius = 8;
             this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.button6.ForeColor = System.Drawing.Color.White;
-            this.button6.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.button6.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button6.Location = new System.Drawing.Point(38, 92);
             this.button6.Name = "button6";
             this.button6.Size = new System.Drawing.Size(60, 80);
@@ -357,12 +367,12 @@ namespace GPIBReaderWinForms
             // button4
             // 
             this.button4.BackColor = System.Drawing.Color.Transparent;
-            this.button4.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.button4.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button4.BorderRadius = 8;
             this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.button4.ForeColor = System.Drawing.Color.White;
-            this.button4.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
+            this.button4.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.button4.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button4.Location = new System.Drawing.Point(37, 190);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(79, 50);
@@ -374,12 +384,12 @@ namespace GPIBReaderWinForms
             // button3
             // 
             this.button3.BackColor = System.Drawing.Color.Transparent;
-            this.button3.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.button3.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button3.BorderRadius = 8;
             this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.button3.ForeColor = System.Drawing.Color.White;
-            this.button3.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.button3.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button3.Location = new System.Drawing.Point(131, 190);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(77, 50);
@@ -391,12 +401,12 @@ namespace GPIBReaderWinForms
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.Transparent;
-            this.button2.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.button2.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button2.BorderRadius = 8;
             this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.button2.ForeColor = System.Drawing.Color.White;
-            this.button2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
+            this.button2.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.button2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button2.Location = new System.Drawing.Point(148, 262);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(60, 80);
@@ -408,12 +418,12 @@ namespace GPIBReaderWinForms
             // button1
             // 
             this.button1.BackColor = System.Drawing.Color.Transparent;
-            this.button1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.button1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button1.BorderRadius = 8;
             this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.button1.ForeColor = System.Drawing.Color.White;
-            this.button1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.button1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button1.Location = new System.Drawing.Point(148, 92);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(60, 80);
@@ -442,15 +452,26 @@ namespace GPIBReaderWinForms
             this.modernPanel3.Size = new System.Drawing.Size(255, 416);
             this.modernPanel3.TabIndex = 22;
             // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
+            this.label17.Location = new System.Drawing.Point(51, 32);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(152, 25);
+            this.label17.TabIndex = 7;
+            this.label17.Text = "Thorlabs Stages";
+            // 
             // button11
             // 
             this.button11.BackColor = System.Drawing.Color.Transparent;
-            this.button11.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.button11.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button11.BorderRadius = 8;
             this.button11.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.button11.ForeColor = System.Drawing.Color.White;
-            this.button11.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
+            this.button11.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.button11.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button11.Location = new System.Drawing.Point(153, 261);
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(60, 80);
@@ -462,12 +483,12 @@ namespace GPIBReaderWinForms
             // button12
             // 
             this.button12.BackColor = System.Drawing.Color.Transparent;
-            this.button12.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.button12.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button12.BorderRadius = 8;
             this.button12.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.button12.ForeColor = System.Drawing.Color.White;
-            this.button12.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.button12.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button12.Location = new System.Drawing.Point(153, 91);
             this.button12.Name = "button12";
             this.button12.Size = new System.Drawing.Size(60, 80);
@@ -479,12 +500,12 @@ namespace GPIBReaderWinForms
             // button7
             // 
             this.button7.BackColor = System.Drawing.Color.Transparent;
-            this.button7.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.button7.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button7.BorderRadius = 8;
             this.button7.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button7.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.button7.ForeColor = System.Drawing.Color.White;
-            this.button7.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
+            this.button7.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button7.Location = new System.Drawing.Point(43, 189);
             this.button7.Name = "button7";
             this.button7.Size = new System.Drawing.Size(78, 50);
@@ -496,12 +517,12 @@ namespace GPIBReaderWinForms
             // button8
             // 
             this.button8.BackColor = System.Drawing.Color.Transparent;
-            this.button8.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.button8.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button8.BorderRadius = 8;
             this.button8.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button8.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.button8.ForeColor = System.Drawing.Color.White;
-            this.button8.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.button8.ForeColor = System.Drawing.SystemColors.GrayText;
+            this.button8.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button8.Location = new System.Drawing.Point(135, 189);
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(78, 50);
@@ -513,11 +534,11 @@ namespace GPIBReaderWinForms
             // button9
             // 
             this.button9.BackColor = System.Drawing.Color.Transparent;
-            this.button9.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
+            this.button9.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.button9.BorderRadius = 8;
             this.button9.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
-            this.button9.ForeColor = System.Drawing.Color.White;
+            this.button9.ForeColor = System.Drawing.SystemColors.GrayText;
             this.button9.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.button9.Location = new System.Drawing.Point(43, 261);
             this.button9.Name = "button9";
@@ -530,12 +551,12 @@ namespace GPIBReaderWinForms
             // button10
             // 
             this.button10.BackColor = System.Drawing.Color.Transparent;
-            this.button10.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.button10.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button10.BorderRadius = 8;
             this.button10.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
             this.button10.ForeColor = System.Drawing.Color.White;
-            this.button10.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.button10.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.button10.Location = new System.Drawing.Point(43, 91);
             this.button10.Name = "button10";
             this.button10.Size = new System.Drawing.Size(60, 80);
@@ -559,7 +580,6 @@ namespace GPIBReaderWinForms
             this.modernPanel4.Controls.Add(this.label13);
             this.modernPanel4.Controls.Add(this.label12);
             this.modernPanel4.Controls.Add(this.btnFitToScreen);
-            this.modernPanel4.Controls.Add(this.JogToHigh);
             this.modernPanel4.Controls.Add(this.StopScan);
             this.modernPanel4.Controls.Add(this.RunScan);
             this.modernPanel4.Controls.Add(this.label11);
@@ -682,30 +702,13 @@ namespace GPIBReaderWinForms
             this.btnFitToScreen.Font = new System.Drawing.Font("Segoe UI", 9F);
             this.btnFitToScreen.ForeColor = System.Drawing.Color.White;
             this.btnFitToScreen.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(98)))), ((int)(((byte)(104)))));
-            this.btnFitToScreen.Location = new System.Drawing.Point(320, 430);
+            this.btnFitToScreen.Location = new System.Drawing.Point(504, 430);
             this.btnFitToScreen.Name = "btnFitToScreen";
             this.btnFitToScreen.Size = new System.Drawing.Size(140, 35);
             this.btnFitToScreen.TabIndex = 15;
             this.btnFitToScreen.Text = "🔍 Fit to Screen";
             this.btnFitToScreen.UseVisualStyleBackColor = false;
             this.btnFitToScreen.Click += new System.EventHandler(this.btnFitToScreen_Click);
-            // 
-            // JogToHigh
-            // 
-            this.JogToHigh.BackColor = System.Drawing.Color.Transparent;
-            this.JogToHigh.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
-            this.JogToHigh.BorderRadius = 8;
-            this.JogToHigh.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.JogToHigh.Font = new System.Drawing.Font("Segoe UI", 9F);
-            this.JogToHigh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.JogToHigh.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(173)))), ((int)(((byte)(0)))));
-            this.JogToHigh.Location = new System.Drawing.Point(480, 430);
-            this.JogToHigh.Name = "JogToHigh";
-            this.JogToHigh.Size = new System.Drawing.Size(140, 35);
-            this.JogToHigh.TabIndex = 14;
-            this.JogToHigh.Text = "🎯 Jog to Peak";
-            this.JogToHigh.UseVisualStyleBackColor = false;
-            this.JogToHigh.Click += new System.EventHandler(this.JogToHigh_Click);
             // 
             // StopScan
             // 
@@ -726,12 +729,12 @@ namespace GPIBReaderWinForms
             // RunScan
             // 
             this.RunScan.BackColor = System.Drawing.Color.Transparent;
-            this.RunScan.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
+            this.RunScan.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.RunScan.BorderRadius = 8;
             this.RunScan.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RunScan.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
             this.RunScan.ForeColor = System.Drawing.Color.White;
-            this.RunScan.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
+            this.RunScan.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.RunScan.Location = new System.Drawing.Point(680, 430);
             this.RunScan.Name = "RunScan";
             this.RunScan.Size = new System.Drawing.Size(140, 40);
@@ -858,28 +861,6 @@ namespace GPIBReaderWinForms
             this.label7.Text = "Automated Reciever Scanning";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.label17.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label17.Location = new System.Drawing.Point(51, 32);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(152, 25);
-            this.label17.TabIndex = 7;
-            this.label17.Text = "Thorlabs Stages";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
-            this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
-            this.label3.Location = new System.Drawing.Point(75, 32);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(84, 25);
-            this.label3.TabIndex = 12;
-            this.label3.Text = "Settings";
-            // 
             // MainForm
             // 
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
@@ -941,7 +922,6 @@ namespace GPIBReaderWinForms
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
         private ModernButton btnFitToScreen;
-        private ModernButton JogToHigh;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Integration.ElementHost elementHostHelix;
         private System.Windows.Forms.Label label14;
