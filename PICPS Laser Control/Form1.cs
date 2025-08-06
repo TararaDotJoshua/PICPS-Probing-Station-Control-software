@@ -35,6 +35,7 @@ namespace GPIBReaderWinForms
             InitializeTimer();
             ZaberController.Initialize("COM3");
             InitializeMotors();
+            AutoStartLaser();
         }
 
         private void InitializeMotors()
@@ -271,6 +272,23 @@ namespace GPIBReaderWinForms
         }
 
         private void MainForm_Load(object sender, EventArgs e) { }
+
+        private void AutoStartLaser()
+        {
+            try
+            {
+                isLaserActive = true;
+                UpdateStatusIndicator();
+                readTimer.Start();
+                Console.WriteLine("Laser auto-started on form load.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Failed to auto-start laser: {ex.Message}");
+                MessageBox.Show("Failed to auto-start laser: " + ex.Message);
+            }
+        }
+
         private void label4_Click(object sender, EventArgs e) { }
         private void label5_Click(object sender, EventArgs e) { }
         private void button1_Click(object sender, EventArgs e) => ZaberController.MoveRelative(2, -GetStep());
