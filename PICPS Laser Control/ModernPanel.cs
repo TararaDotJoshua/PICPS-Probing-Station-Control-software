@@ -12,6 +12,7 @@ namespace GPIBReaderWinForms
         private int _borderRadius = 12;
         private int _borderWidth = 1;
         private bool _hasShadow = true;
+        private bool _seamlessMode = false;
 
         public Color BackgroundColor
         {
@@ -37,6 +38,12 @@ namespace GPIBReaderWinForms
             set { _hasShadow = value; Invalidate(); }
         }
 
+        public bool SeamlessMode
+        {
+            get => _seamlessMode;
+            set { _seamlessMode = value; Invalidate(); }
+        }
+
         public ModernPanel()
         {
             SetStyle(ControlStyles.AllPaintingInWmPaint | 
@@ -51,7 +58,20 @@ namespace GPIBReaderWinForms
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.Clear(Color.Transparent);
+            
+            // Get parent background color for seamless blending
+            Color parentBg = Parent?.BackColor ?? Color.FromArgb(248, 249, 250);
+            g.Clear(parentBg);
+            
+            // In seamless mode, just fill with parent background
+            if (_seamlessMode)
+            {
+                using (SolidBrush brush = new SolidBrush(parentBg))
+                {
+                    g.FillRectangle(brush, ClientRectangle);
+                }
+                return;
+            }
 
             Rectangle rect = ClientRectangle;
             

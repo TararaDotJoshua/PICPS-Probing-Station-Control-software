@@ -134,6 +134,7 @@ namespace GPIBReaderWinForms
             try
             {
                 device = new Device(0, 25, 0);
+                device.IOTimeout = TimeoutValue.T1s; // Set 1 second timeout
                 device.Write("C 2");
                 device.Write("D 1");
                 device.Write("PF B");
@@ -146,7 +147,7 @@ namespace GPIBReaderWinForms
 
         private void InitializeTimer()
         {
-            readTimer = new System.Windows.Forms.Timer { Interval = 5 };
+            readTimer = new System.Windows.Forms.Timer { Interval = 100 }; // Slower polling to prevent timeouts
             readTimer.Tick += ReadTimer_Tick;
         }
 
@@ -156,6 +157,9 @@ namespace GPIBReaderWinForms
             {
                 if (device != null)
                 {
+                    // Temporarily stop timer to prevent overlapping calls
+                    readTimer.Stop();
+                    
                     device.Write("POD?");
                     string response = device.ReadString().Trim();
                     var match = Regex.Match(response, @"[-+]?\d+\.\d+");
@@ -174,27 +178,30 @@ namespace GPIBReaderWinForms
                             lblPower.Text = "Invalid response";
                         }));
                     }
+                    
+                    // Restart timer
+                    readTimer.Start();
                 }
             }
             catch (NationalInstruments.NI4882.GpibException gpibEx)
             {
                 // Handle GPIB specific exceptions
                 this.Invoke(new Action(() => {
-                    lblPower.Text = "GPIB Error";
+                    lblPower.Text = "GPIB Timeout";
                 }));
                 
                 // Log the error but don't stop the timer
-                Console.WriteLine($"GPIB Error: {gpibEx.Message}");
+                Console.WriteLine($"GPIB Timeout: {gpibEx.Message}");
                 
-                // Optionally restart the connection
+                // Wait longer before retrying after timeout
                 try
                 {
-                    InitializeGPIB();
+                    System.Threading.Thread.Sleep(500); // Wait 500ms before retry
+                    readTimer.Start(); // Restart timer
                 }
                 catch
                 {
-                    // If reconnection fails, stop the timer temporarily
-                    readTimer.Stop();
+                    // If still failing, wait longer
                     System.Threading.Thread.Sleep(1000);
                     readTimer.Start();
                 }
@@ -205,6 +212,10 @@ namespace GPIBReaderWinForms
                     lblPower.Text = "Connection Error";
                 }));
                 Console.WriteLine($"General Error: {ex.Message}");
+                
+                // Restart timer after general error
+                System.Threading.Thread.Sleep(200);
+                readTimer.Start();
             }
         }
 
