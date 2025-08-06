@@ -61,16 +61,11 @@ namespace GPIBReaderWinForms
             
             // Get parent background color for seamless blending
             Color parentBg = Parent?.BackColor ?? Color.FromArgb(248, 249, 250);
-            g.Clear(parentBg);
             
-            // In seamless mode, just fill with parent background
-            if (_seamlessMode)
+            // First fill entire area with parent background color to handle corners
+            using (SolidBrush parentBrush = new SolidBrush(parentBg))
             {
-                using (SolidBrush brush = new SolidBrush(parentBg))
-                {
-                    g.FillRectangle(brush, ClientRectangle);
-                }
-                return;
+                g.FillRectangle(parentBrush, ClientRectangle);
             }
 
             Rectangle rect = ClientRectangle;
