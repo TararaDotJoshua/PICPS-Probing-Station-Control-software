@@ -44,11 +44,15 @@ namespace GPIBReaderWinForms
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.ZDataPoints = new System.Windows.Forms.TextBox();
+            this.ZSize = new System.Windows.Forms.TextBox();
             this.elementHostHelix = new System.Windows.Forms.Integration.ElementHost();
             this.label13 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.DatasetSelect = new System.Windows.Forms.ComboBox();
-            this.LoadData = new System.Windows.Forms.Button();
+            this.btnFitToScreen = new System.Windows.Forms.Button();
             this.JogToHigh = new System.Windows.Forms.Button();
             this.StopScan = new System.Windows.Forms.Button();
             this.RunScan = new System.Windows.Forms.Button();
@@ -358,11 +362,15 @@ namespace GPIBReaderWinForms
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.label14);
+            this.tabPage2.Controls.Add(this.label15);
+            this.tabPage2.Controls.Add(this.label16);
+            this.tabPage2.Controls.Add(this.ZDataPoints);
+            this.tabPage2.Controls.Add(this.ZSize);
             this.tabPage2.Controls.Add(this.elementHostHelix);
             this.tabPage2.Controls.Add(this.label13);
             this.tabPage2.Controls.Add(this.label12);
-            this.tabPage2.Controls.Add(this.DatasetSelect);
-            this.tabPage2.Controls.Add(this.LoadData);
+            this.tabPage2.Controls.Add(this.btnFitToScreen);
             this.tabPage2.Controls.Add(this.JogToHigh);
             this.tabPage2.Controls.Add(this.StopScan);
             this.tabPage2.Controls.Add(this.RunScan);
@@ -383,6 +391,47 @@ namespace GPIBReaderWinForms
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Auto-Alignment";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(124, 152);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(42, 13);
+            this.label14.TabIndex = 24;
+            this.label14.Text = "Z - Axis";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(173, 197);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(62, 13);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "Data Points";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(174, 171);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(48, 13);
+            this.label16.TabIndex = 22;
+            this.label16.Text = "mm Area";
+            // 
+            // ZDataPoints
+            // 
+            this.ZDataPoints.Location = new System.Drawing.Point(127, 194);
+            this.ZDataPoints.Name = "ZDataPoints";
+            this.ZDataPoints.Size = new System.Drawing.Size(45, 20);
+            this.ZDataPoints.TabIndex = 21;
+            // 
+            // ZSize
+            // 
+            this.ZSize.Location = new System.Drawing.Point(127, 168);
+            this.ZSize.Name = "ZSize";
+            this.ZSize.Size = new System.Drawing.Size(45, 20);
+            this.ZSize.TabIndex = 20;
             // 
             // elementHostHelix
             // 
@@ -412,31 +461,25 @@ namespace GPIBReaderWinForms
             this.label12.TabIndex = 17;
             this.label12.Text = "Y - Axis";
             // 
-            // DatasetSelect
+            // btnFitToScreen
             // 
-            this.DatasetSelect.FormattingEnabled = true;
-            this.DatasetSelect.Location = new System.Drawing.Point(296, 278);
-            this.DatasetSelect.Name = "DatasetSelect";
-            this.DatasetSelect.Size = new System.Drawing.Size(121, 21);
-            this.DatasetSelect.TabIndex = 16;
-            // 
-            // LoadData
-            // 
-            this.LoadData.Location = new System.Drawing.Point(296, 305);
-            this.LoadData.Name = "LoadData";
-            this.LoadData.Size = new System.Drawing.Size(121, 23);
-            this.LoadData.TabIndex = 15;
-            this.LoadData.Text = "Load Data";
-            this.LoadData.UseVisualStyleBackColor = true;
+            this.btnFitToScreen.Location = new System.Drawing.Point(296, 276);
+            this.btnFitToScreen.Name = "btnFitToScreen";
+            this.btnFitToScreen.Size = new System.Drawing.Size(121, 23);
+            this.btnFitToScreen.TabIndex = 15;
+            this.btnFitToScreen.Text = "Fit Data To Screen";
+            this.btnFitToScreen.UseVisualStyleBackColor = true;
+            this.btnFitToScreen.Click += new System.EventHandler(this.btnFitToScreen_Click);
             // 
             // JogToHigh
             // 
-            this.JogToHigh.Location = new System.Drawing.Point(296, 334);
+            this.JogToHigh.Location = new System.Drawing.Point(296, 305);
             this.JogToHigh.Name = "JogToHigh";
             this.JogToHigh.Size = new System.Drawing.Size(121, 23);
             this.JogToHigh.TabIndex = 14;
             this.JogToHigh.Text = "Jog to High Point";
             this.JogToHigh.UseVisualStyleBackColor = true;
+            this.JogToHigh.Click += new System.EventHandler(this.JogToHigh_Click);
             // 
             // StopScan
             // 
@@ -601,10 +644,14 @@ namespace GPIBReaderWinForms
         private System.Windows.Forms.Button RunScan;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.ComboBox DatasetSelect;
-        private System.Windows.Forms.Button LoadData;
+        private System.Windows.Forms.Button btnFitToScreen;
         private System.Windows.Forms.Button JogToHigh;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Integration.ElementHost elementHostHelix;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.TextBox ZDataPoints;
+        private System.Windows.Forms.TextBox ZSize;
     }
 }

@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
-using System.Windows.Forms.DataVisualization.Charting;
-using System.Windows.Threading;
 using System.Windows.Forms.Integration;
 using HelixToolkit.Wpf;
 using System.Windows.Controls;
@@ -17,100 +15,104 @@ namespace GPIBReaderWinForms
     public class ZaberSpiralScanner
     {
         private readonly Device gpibDevice;
-        private readonly int stepsX, stepsY;
-        private readonly double startX, endX, startY, endY;
-        private readonly double stepX, stepY;
+        private readonly int stepsX, stepsY, stepsZ;
+        private readonly double startX, endX, startY, endY, startZ, endZ;
+        private readonly double stepX, stepY, stepZ;
         private readonly ElementHost elementHost;
-        private readonly List<(double x, double y, float power)> scanData = new List<(double, double, float)>();
+        private readonly List<Tuple<double, double, double, float>> scanData = new List<Tuple<double, double, double, float>>();
+        private readonly bool zEnabled;
 
-        public ZaberSpiralScanner(Device gpib, double rangeXmm, double rangeYmm, int pointsX, int pointsY, ElementHost helixHost)
+        public ZaberSpiralScanner(Device gpib, double rangeXmm, double rangeYmm, double rangeZmm,
+                                  int pointsX, int pointsY, int pointsZ,
+                                  ElementHost helixHost, bool enableZ)
         {
             gpibDevice = gpib;
+            elementHost = helixHost;
+            zEnabled = enableZ;
+
             stepsX = pointsX;
             stepsY = pointsY;
-            elementHost = helixHost;
+            stepsZ = enableZ ? pointsZ : 1;
 
-            // Query current X (axis 2) and Y (axis 3) positions from Zaber
-            double centerX = ZaberController.GetPosition(2);  // X axis
-            double centerY = ZaberController.GetPosition(3);  // Y axis
+            double centerX = ZaberController.GetPosition(2);
+            double centerY = ZaberController.GetPosition(3);
+            double centerZ = ZaberController.GetPosition(1);
 
-            if (double.IsNaN(centerX) || double.IsNaN(centerY))
-            {
-                Console.WriteLine("❌ Failed to get current probe position. Aborting scan.");
-                throw new InvalidOperationException("Cannot determine probe center.");
-            }
+            if (double.IsNaN(centerX) || double.IsNaN(centerY) || (enableZ && double.IsNaN(centerZ)))
+                throw new InvalidOperationException("❌ Cannot determine current probe center position.");
 
-            // Define scan bounds centered on current position
             startX = centerX - rangeXmm / 2.0;
             endX = centerX + rangeXmm / 2.0;
             startY = centerY - rangeYmm / 2.0;
             endY = centerY + rangeYmm / 2.0;
+            startZ = enableZ ? centerZ - rangeZmm / 2.0 : centerZ;
+            endZ = enableZ ? centerZ + rangeZmm / 2.0 : centerZ;
 
             stepX = rangeXmm / (pointsX - 1);
             stepY = rangeYmm / (pointsY - 1);
+            stepZ = enableZ ? rangeZmm / (pointsZ - 1) : 0;
 
-            Console.WriteLine("🛠️  Zaber Spiral Scanner Initialized (centered on current probe position)");
-            Console.WriteLine($"  Center: ({centerX:F3}, {centerY:F3}) mm");
-            Console.WriteLine($"  X range: {startX:F3} to {endX:F3} mm, StepX: {stepX:F3} mm");
-            Console.WriteLine($"  Y range: {startY:F3} to {endY:F3} mm, StepY: {stepY:F3} mm");
+            Console.WriteLine($"Zaber Scanner Init (Z enabled: {enableZ})");
+            Console.WriteLine($"Center: X={centerX:F2}, Y={centerY:F2}, Z={centerZ:F2}");
+            Console.WriteLine($"X range: {startX:F2} → {endX:F2}, step: {stepX:F2} mm");
+            Console.WriteLine($"Y range: {startY:F2} → {endY:F2}, step: {stepY:F2} mm");
+            if (enableZ)
+                Console.WriteLine($"Z range: {startZ:F2} → {endZ:F2}, step: {stepZ:F2} mm");
         }
-
-
 
         public void Execute()
         {
-            Console.WriteLine("Starting raster scan...");
-            JogToTopLeft();
-            RasterScan();
+            Console.WriteLine("Starting scan...");
+            JogToStart();
+            ScanVolume();
             MoveToMaxPower();
-            JogToCenter();
             UpdateHelix3D();
-            Console.WriteLine("Raster scan completed.");
+            Console.WriteLine("Scan complete.");
         }
 
-        private void JogToTopLeft()
+        private void JogToStart()
         {
-            double x = startX;
-            double y = startY;
-            Console.WriteLine($"Jogging to top-left: ({x}, {y}) mm");
-            ZaberController.MoveAbsolute(2, x);
-            ZaberController.MoveAbsolute(3, y);
+            Console.WriteLine("Jogging to scan start position...");
+            ZaberController.MoveAbsolute(2, startX); // X
+            ZaberController.MoveAbsolute(3, startY); // Y
+            if (zEnabled)
+                ZaberController.MoveAbsolute(1, startZ); // Z
             Thread.Sleep(500);
         }
 
-        private void JogToCenter()
+        private void ScanVolume()
         {
-            double centerX = (startX + endX) / 2.0;
-            double centerY = (startY + endY) / 2.0;
-            Console.WriteLine($"Jogging to center: ({centerX}, {centerY}) mm");
-            ZaberController.MoveAbsolute(2, centerX);
-            ZaberController.MoveAbsolute(3, centerY);
-            Thread.Sleep(500);
-        }
-
-        private void RasterScan()
-        {
-            for (int y = 0; y < stepsY; y++)
+            for (int z = 0; z < stepsZ; z++)
             {
-                if (y % 2 == 0)
+                double zPos = zEnabled ? startZ + z * stepZ : startZ;
+                if (zEnabled)
                 {
-                    for (int x = 0; x < stepsX; x++)
-                        MoveAndLog(y, x);
+                    Console.WriteLine($"→ Z = {zPos:F2} mm");
+                    ZaberController.MoveAbsolute(1, zPos);
+                    Thread.Sleep(300);
                 }
-                else
+
+                for (int y = 0; y < stepsY; y++)
                 {
-                    for (int x = stepsX - 1; x >= 0; x--)
-                        MoveAndLog(y, x);
+                    if (y % 2 == 0)
+                    {
+                        for (int x = 0; x < stepsX; x++)
+                            MoveAndLog(x, y, zPos);
+                    }
+                    else
+                    {
+                        for (int x = stepsX - 1; x >= 0; x--)
+                            MoveAndLog(x, y, zPos);
+                    }
                 }
             }
         }
 
-        private void MoveAndLog(int yIndex, int xIndex)
+        private void MoveAndLog(int xIndex, int yIndex, double zPos)
         {
             double x = startX + xIndex * stepX;
             double y = startY + yIndex * stepY;
 
-            Console.WriteLine($"Moving to: X={x:F3} mm, Y={y:F3} mm");
             ZaberController.MoveAbsolute(2, x);
             ZaberController.MoveAbsolute(3, y);
             Thread.Sleep(150);
@@ -118,83 +120,81 @@ namespace GPIBReaderWinForms
             float? power = ReadPower();
             if (power.HasValue)
             {
-                Console.WriteLine($"    dBm: {power.Value:F3}");
+                Console.WriteLine($"X={x:F2} Y={y:F2} Z={zPos:F2} → Power={power.Value:F2} dBm");
+                scanData.Add(Tuple.Create(x, y, zPos, power.Value));
                 PowerLogger.Log(power.Value);
-                scanData.Add((x, y, power.Value));
             }
             else
             {
                 Console.WriteLine("    Power read failed.");
-                scanData.Add((x, y, 0));
+                scanData.Add(Tuple.Create(x, y, zPos, 0f));
             }
         }
 
         private void MoveToMaxPower()
         {
             if (scanData.Count == 0) return;
+
             var maxPoint = scanData[0];
-            foreach (var point in scanData)
-            {
-                if (point.power > maxPoint.power)
-                    maxPoint = point;
-            }
-            Console.WriteLine($"Moving to max power location: X={maxPoint.x:F3}, Y={maxPoint.y:F3}, Power={maxPoint.power:F3} dBm");
-            ZaberController.MoveAbsolute(2, maxPoint.x);
-            ZaberController.MoveAbsolute(3, maxPoint.y);
+            foreach (var pt in scanData)
+                if (pt.Item4 > maxPoint.Item4) maxPoint = pt;
+
+            Console.WriteLine($"Moving to max power point: X={maxPoint.Item1:F2}, Y={maxPoint.Item2:F2}, Z={maxPoint.Item3:F2}, Power={maxPoint.Item4:F2} dBm");
+            ZaberController.MoveAbsolute(2, maxPoint.Item1);
+            ZaberController.MoveAbsolute(3, maxPoint.Item2);
+            if (zEnabled)
+                ZaberController.MoveAbsolute(1, maxPoint.Item3);
             Thread.Sleep(500);
         }
 
         private void UpdateHelix3D()
         {
-            elementHost.Invoke(new Action(() =>
+            elementHost.Invoke(new Action(delegate
             {
-                var viewport = new HelixViewport3D();
+                HelixViewport3D viewport = new HelixViewport3D();
                 viewport.Camera = new PerspectiveCamera(new Media3DPoint3D(0, 0, 100), new Vector3D(0, 0, -1), new Vector3D(0, 1, 0), 45);
                 viewport.Children.Add(new SunLight());
 
-                float minPower = float.MaxValue;
-                float maxPower = float.MinValue;
-                foreach (var (_, _, power) in scanData)
+                float minPower = float.MaxValue, maxPower = float.MinValue;
+                foreach (var pt in scanData)
                 {
-                    if (power < minPower) minPower = power;
-                    if (power > maxPower) maxPower = power;
+                    if (pt.Item4 < minPower) minPower = pt.Item4;
+                    if (pt.Item4 > maxPower) maxPower = pt.Item4;
                 }
 
-                foreach (var (x, y, power) in scanData)
+                foreach (var pt in scanData)
                 {
-                    double normalized = (power - minPower) / (maxPower - minPower + 0.0001);
-                    Color color = GetGradientColor(normalized);
+                    double norm = Normalize(pt.Item4, minPower, maxPower);
+                    Color color = GetGradientColor(norm);
 
-                    var sphere = new SphereVisual3D
-                    {
-                        Radius = stepX/2.0,
-                        Center = new Media3DPoint3D(x, y, 0),
-                        Material = MaterialHelper.CreateMaterial(color)
-                    };
+                    SphereVisual3D sphere = new SphereVisual3D();
+                    sphere.Radius = stepX / 2;
+                    sphere.Center = new Media3DPoint3D(pt.Item1, pt.Item2, pt.Item3);
+                    sphere.Material = MaterialHelper.CreateMaterial(color);
                     viewport.Children.Add(sphere);
                 }
 
-                var bounds = Rect3D.Empty;
-                foreach (var (x, y, z) in scanData)
-                    bounds.Union(new Rect3D(x, y, z, 0, 0, 0));
-
-                viewport.ZoomExtents(bounds);
+                viewport.ZoomExtents();
                 elementHost.Child = viewport;
             }));
         }
 
+        private double Normalize(float val, float min, float max)
+        {
+            if (max - min < 1e-6) return 0;
+            double norm = (val - min) / (max - min);
+            if (norm < 0) return 0;
+            if (norm > 1) return 1;
+            return norm;
+        }
+
         private Color GetGradientColor(double t)
         {
-            if (t < 0.25)
-                return Colors.Red;
-            else if (t < 0.5)
-                return Colors.Orange;
-            else if (t < 0.75)
-                return Colors.Yellow;
-            else if (t < 0.9)
-                return Colors.Green;
-            else
-                return Colors.Blue;
+            if (t < 0.25) return Colors.Red;
+            else if (t < 0.5) return Colors.Orange;
+            else if (t < 0.75) return Colors.Yellow;
+            else if (t < 0.9) return Colors.Green;
+            return Colors.Blue;
         }
 
         private float? ReadPower()
@@ -203,16 +203,15 @@ namespace GPIBReaderWinForms
             {
                 gpibDevice.Write("POD?");
                 string response = gpibDevice.ReadString().Trim();
-                var match = Regex.Match(response, @"[-+]?\d+\.\d+");
+                Match match = Regex.Match(response, @"[-+]?\d+\.\d+");
                 if (match.Success && float.TryParse(match.Value, out float power))
                     return power;
-                Console.WriteLine("    GPIB read: invalid response.");
+                Console.WriteLine("    GPIB: invalid response.");
             }
             catch (Exception ex)
             {
                 Console.WriteLine("    GPIB read error: " + ex.Message);
             }
-
             return null;
         }
     }

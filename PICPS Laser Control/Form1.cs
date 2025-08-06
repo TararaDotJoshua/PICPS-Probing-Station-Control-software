@@ -1,4 +1,5 @@
 using GPIBReaderWinForms;
+using HelixToolkit.Wpf;
 using NationalInstruments.NI4882;
 using System;
 using System.IO;
@@ -247,16 +248,20 @@ namespace GPIBReaderWinForms
 
         private void RunScan_Click(object sender, EventArgs e)
         {
+            double.TryParse(ZSize.Text, out double rangeZ);
+            int.TryParse(ZDataPoints.Text, out int pointsZ);
+            bool zEnabled = rangeZ > 0 && pointsZ > 0;
+
             if (!double.TryParse(XSize.Text, out double rangeX) ||
-                !double.TryParse(YSize.Text, out double rangeY) ||
-                !int.TryParse(XDataPoints.Text, out int pointsX) ||
-                !int.TryParse(YDataPoints.Text, out int pointsY))
+                            !double.TryParse(YSize.Text, out double rangeY) ||
+                            !int.TryParse(XDataPoints.Text, out int pointsX) ||
+                            !int.TryParse(YDataPoints.Text, out int pointsY))
             {
                 MessageBox.Show("Invalid scan parameters.");
                 return;
             }
 
-            var scanner = new ZaberSpiralScanner(device, rangeX, rangeY, pointsX, pointsY, elementHostHelix);
+            var scanner = new ZaberSpiralScanner(device, rangeX, rangeY, zEnabled ? rangeZ : 0, pointsX, pointsY, zEnabled ? pointsZ : 0, elementHostHelix, zEnabled);
             scanner.Execute();
             MessageBox.Show("Zaber scan complete. Power values logged.");
         }
@@ -300,6 +305,29 @@ namespace GPIBReaderWinForms
                     MessageBox.Show($"Thorlabs homing failed: {ex.Message}");
                 }
             });
+        }
+
+        private void JogToHigh_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void btnFitToScreen_Click(object sender, EventArgs e)
+        {
+            if (elementHostHelix?.Child is HelixViewport3D viewport)
+            {
+                viewport.ZoomExtents();
+                Console.WriteLine("Fit to screen triggered.");
+            }
+            else
+            {
+                Console.WriteLine("No Helix viewport found.");
+            }
+        }
+
+        private void ZLayers_Scroll(object sender, EventArgs e)
+        {
+
         }
     }
 }
