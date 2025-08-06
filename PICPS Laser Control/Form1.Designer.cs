@@ -85,6 +85,7 @@ namespace GPIBReaderWinForms
             this.lblPower.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 24F, System.Drawing.FontStyle.Bold);
             this.lblPower.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblPower.Location = new System.Drawing.Point(20, 50);
+            this.lblPower.MaximumSize = new System.Drawing.Size(160, 0);
             this.lblPower.Name = "lblPower";
             this.lblPower.Size = new System.Drawing.Size(147, 45);
             this.lblPower.TabIndex = 0;
@@ -347,7 +348,7 @@ namespace GPIBReaderWinForms
             this.button8.Name = "button8";
             this.button8.Size = new System.Drawing.Size(120, 50);
             this.button8.TabIndex = 8;
-            this.button8.Text = "Z ➡";
+            this.button8.Text = "Z →";
             this.button8.Click += new System.EventHandler(this.button8_Click);
             // 
             // button9
@@ -425,7 +426,7 @@ namespace GPIBReaderWinForms
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(120, 50);
             this.button3.TabIndex = 2;
-            this.button3.Text = "Z ➡";
+            this.button3.Text = "Z →";
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // button2
@@ -755,7 +756,7 @@ namespace GPIBReaderWinForms
             this.powerPanel.HasShadow = true;
             this.powerPanel.Location = new System.Drawing.Point(20, 20);
             this.powerPanel.Name = "powerPanel";
-            this.powerPanel.Size = new System.Drawing.Size(180, 300);
+            this.powerPanel.Size = new System.Drawing.Size(200, 320);
             this.powerPanel.TabIndex = 6;
             // 
             // statusIndicator

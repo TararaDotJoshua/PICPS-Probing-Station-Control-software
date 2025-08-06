@@ -79,6 +79,7 @@ namespace GPIBReaderWinForms
         {
             Graphics g = pevent.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.Clear(Parent.BackColor); // Clear with parent background for transparency
 
             Color currentColor = _baseColor;
             if (_isPressed) currentColor = _pressedColor;
@@ -86,10 +87,15 @@ namespace GPIBReaderWinForms
 
             using (GraphicsPath path = GetRoundedRectangle(ClientRectangle, _borderRadius))
             {
+                // Set clipping region to prevent drawing outside rounded corners
+                g.SetClip(path);
+                
                 using (SolidBrush brush = new SolidBrush(currentColor))
                 {
                     g.FillPath(brush, path);
                 }
+                
+                g.ResetClip();
             }
 
             TextRenderer.DrawText(g, Text, Font, ClientRectangle, ForeColor, 
@@ -99,7 +105,17 @@ namespace GPIBReaderWinForms
         private GraphicsPath GetRoundedRectangle(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
+            if (radius <= 0)
+            {
+                path.AddRectangle(rect);
+                return path;
+            }
+            
             int diameter = radius * 2;
+            
+            // Ensure diameter doesn't exceed rectangle dimensions
+            diameter = Math.Min(diameter, Math.Min(rect.Width, rect.Height));
+            radius = diameter / 2;
             
             path.AddArc(rect.X, rect.Y, diameter, diameter, 180, 90);
             path.AddArc(rect.Right - diameter, rect.Y, diameter, diameter, 270, 90);

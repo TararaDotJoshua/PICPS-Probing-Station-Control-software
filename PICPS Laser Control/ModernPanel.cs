@@ -51,6 +51,7 @@ namespace GPIBReaderWinForms
         {
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
+            g.Clear(Color.Transparent);
 
             Rectangle rect = ClientRectangle;
             

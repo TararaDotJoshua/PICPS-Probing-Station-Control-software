@@ -154,23 +154,57 @@ namespace GPIBReaderWinForms
         {
             try
             {
-                device.Write("POD?");
-                string response = device.ReadString().Trim();
-                var match = Regex.Match(response, @"[-+]?\d+\.\d+");
+                if (device != null)
+                {
+                    device.Write("POD?");
+                    string response = device.ReadString().Trim();
+                    var match = Regex.Match(response, @"[-+]?\d+\.\d+");
 
-                if (match.Success && float.TryParse(match.Value, out float power))
-                {
-                    lblPower.Text = $"{power:+0.000;-0.000} dBm";
-                    PowerLogger.Log(power);
+                    if (match.Success && float.TryParse(match.Value, out float power))
+                    {
+                        // Use Invoke to safely update UI from timer thread
+                        this.Invoke(new Action(() => {
+                            lblPower.Text = $"{power:+0.000;-0.000} dBm";
+                        }));
+                        PowerLogger.Log(power);
+                    }
+                    else
+                    {
+                        this.Invoke(new Action(() => {
+                            lblPower.Text = "Invalid response";
+                        }));
+                    }
                 }
-                else
+            }
+            catch (NationalInstruments.NI4882.GpibException gpibEx)
+            {
+                // Handle GPIB specific exceptions
+                this.Invoke(new Action(() => {
+                    lblPower.Text = "GPIB Error";
+                }));
+                
+                // Log the error but don't stop the timer
+                Console.WriteLine($"GPIB Error: {gpibEx.Message}");
+                
+                // Optionally restart the connection
+                try
                 {
-                    lblPower.Text = "Invalid response";
+                    InitializeGPIB();
+                }
+                catch
+                {
+                    // If reconnection fails, stop the timer temporarily
+                    readTimer.Stop();
+                    System.Threading.Thread.Sleep(1000);
+                    readTimer.Start();
                 }
             }
             catch (Exception ex)
             {
-                lblPower.Text = "Error reading: " + ex.Message;
+                this.Invoke(new Action(() => {
+                    lblPower.Text = "Connection Error";
+                }));
+                Console.WriteLine($"General Error: {ex.Message}");
             }
         }
 
