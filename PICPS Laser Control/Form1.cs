@@ -25,6 +25,7 @@ namespace GPIBReaderWinForms
         private KCubeStepper xMotor;
         private KCubeStepper yMotor;
         private KCubeStepper zMotor;
+        private bool isLaserActive = false;
 
         public MainForm()
         {
@@ -176,6 +177,8 @@ namespace GPIBReaderWinForms
         {
             try
             {
+                isLaserActive = true;
+                UpdateStatusIndicator();
                 readTimer.Start();
             }
             catch (Exception ex)
@@ -188,11 +191,23 @@ namespace GPIBReaderWinForms
         {
             try
             {
+                isLaserActive = false;
+                UpdateStatusIndicator();
                 readTimer.Stop();
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Failed to stop laser: " + ex.Message);
+            }
+        }
+
+        private void UpdateStatusIndicator()
+        {
+            if (statusIndicator != null)
+            {
+                statusIndicator.BackColor = isLaserActive ? 
+                    Color.FromArgb(40, 167, 69) : // Green when active
+                    Color.FromArgb(220, 53, 69);  // Red when inactive
             }
         }
 

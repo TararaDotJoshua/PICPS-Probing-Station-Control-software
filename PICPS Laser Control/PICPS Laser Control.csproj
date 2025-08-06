@@ -98,6 +98,15 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ModernButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ModernPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="ModernTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="KCubeController.cs" />
     <Compile Include="ZaberController.cs" />
     <Compile Include="PowerLogger.cs" />
