@@ -41,7 +41,7 @@ namespace GPIBReaderWinForms
             
             BackColor = Color.Transparent;
             ForeColor = Color.White;
-            Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            Font = new Font(new FontFamily("Segoe UI"), 9F, FontStyle.Regular);
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
             Size = new Size(120, 40);

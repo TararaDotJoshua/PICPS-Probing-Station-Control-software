@@ -82,7 +82,7 @@ namespace GPIBReaderWinForms
             // lblPower
             // 
             this.lblPower.AutoSize = true;
-            this.lblPower.Font = new System.Drawing.Font("Segoe UI", 24F, System.Drawing.FontStyle.Bold);
+            this.lblPower.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 24F, System.Drawing.FontStyle.Bold);
             this.lblPower.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.lblPower.Location = new System.Drawing.Point(20, 50);
             this.lblPower.Name = "lblPower";
@@ -94,7 +94,7 @@ namespace GPIBReaderWinForms
             // 
             this.btnStart.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.btnStart.BorderRadius = 8;
-            this.btnStart.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Medium);
+            this.btnStart.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.btnStart.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.btnStart.Location = new System.Drawing.Point(20, 120);
             this.btnStart.Name = "btnStart";
@@ -107,7 +107,7 @@ namespace GPIBReaderWinForms
             // 
             this.btnStop.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.btnStop.BorderRadius = 8;
-            this.btnStop.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Medium);
+            this.btnStop.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.btnStop.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.btnStop.Location = new System.Drawing.Point(20, 175);
             this.btnStop.Name = "btnStop";
@@ -119,7 +119,7 @@ namespace GPIBReaderWinForms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Medium);
+            this.label1.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 12F, System.Drawing.FontStyle.Bold);
             this.label1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label1.Location = new System.Drawing.Point(20, 20);
             this.label1.Name = "label1";
@@ -131,7 +131,7 @@ namespace GPIBReaderWinForms
             // 
             this.btnViewLog.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.btnViewLog.BorderRadius = 8;
-            this.btnViewLog.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Medium);
+            this.btnViewLog.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Regular);
             this.btnViewLog.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(98)))), ((int)(((byte)(104)))));
             this.btnViewLog.Location = new System.Drawing.Point(20, 240);
             this.btnViewLog.Name = "btnViewLog";
@@ -144,7 +144,7 @@ namespace GPIBReaderWinForms
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
-            this.tabControl1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.tabControl1.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Regular);
             this.tabControl1.Location = new System.Drawing.Point(220, 20);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -182,7 +182,7 @@ namespace GPIBReaderWinForms
             // 
             this.HomeAll.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
             this.HomeAll.BorderRadius = 8;
-            this.HomeAll.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Bold);
+            this.HomeAll.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 11F, System.Drawing.FontStyle.Bold);
             this.HomeAll.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.HomeAll.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(173)))), ((int)(((byte)(0)))));
             this.HomeAll.Location = new System.Drawing.Point(350, 25);
@@ -195,7 +195,7 @@ namespace GPIBReaderWinForms
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label6.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.label6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label6.Location = new System.Drawing.Point(170, 55);
             this.label6.Name = "label6";
@@ -206,7 +206,7 @@ namespace GPIBReaderWinForms
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Medium);
+            this.label5.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 11F, System.Drawing.FontStyle.Bold);
             this.label5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label5.Location = new System.Drawing.Point(30, 25);
             this.label5.Name = "label5";
@@ -220,7 +220,7 @@ namespace GPIBReaderWinForms
             this.textBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.textBox1.BorderRadius = 6;
             this.textBox1.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.textBox1.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.textBox1.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Regular);
             this.textBox1.Location = new System.Drawing.Point(30, 50);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(140, 30);
@@ -230,7 +230,7 @@ namespace GPIBReaderWinForms
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Segoe UI", 8F);
+            this.label4.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 8F, System.Drawing.FontStyle.Regular);
             this.label4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label4.Location = new System.Drawing.Point(430, 200);
             this.label4.Name = "label4";
@@ -242,7 +242,7 @@ namespace GPIBReaderWinForms
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.label3.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 14F, System.Drawing.FontStyle.Bold);
             this.label3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label3.Location = new System.Drawing.Point(580, 20);
             this.label3.Name = "label3";
@@ -254,7 +254,7 @@ namespace GPIBReaderWinForms
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold);
+            this.label2.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 14F, System.Drawing.FontStyle.Bold);
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label2.Location = new System.Drawing.Point(30, 20);
             this.label2.Name = "label2";
@@ -302,7 +302,7 @@ namespace GPIBReaderWinForms
             // 
             this.button11.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.button11.BorderRadius = 8;
-            this.button11.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button11.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button11.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.button11.Location = new System.Drawing.Point(340, 250);
             this.button11.Name = "button11";
@@ -315,7 +315,7 @@ namespace GPIBReaderWinForms
             // 
             this.button12.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.button12.BorderRadius = 8;
-            this.button12.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button12.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button12.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.button12.Location = new System.Drawing.Point(340, 80);
             this.button12.Name = "button12";
@@ -328,7 +328,7 @@ namespace GPIBReaderWinForms
             // 
             this.button7.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.button7.BorderRadius = 8;
-            this.button7.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.button7.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.button7.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.button7.Location = new System.Drawing.Point(30, 170);
             this.button7.Name = "button7";
@@ -341,7 +341,7 @@ namespace GPIBReaderWinForms
             // 
             this.button8.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.button8.BorderRadius = 8;
-            this.button8.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.button8.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.button8.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.button8.Location = new System.Drawing.Point(170, 170);
             this.button8.Name = "button8";
@@ -354,7 +354,7 @@ namespace GPIBReaderWinForms
             // 
             this.button9.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.button9.BorderRadius = 8;
-            this.button9.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button9.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button9.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.button9.Location = new System.Drawing.Point(230, 250);
             this.button9.Name = "button9";
@@ -367,7 +367,7 @@ namespace GPIBReaderWinForms
             // 
             this.button10.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.button10.BorderRadius = 8;
-            this.button10.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button10.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button10.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.button10.Location = new System.Drawing.Point(230, 80);
             this.button10.Name = "button10";
@@ -380,7 +380,7 @@ namespace GPIBReaderWinForms
             // 
             this.button5.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.button5.BorderRadius = 8;
-            this.button5.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button5.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button5.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.button5.Location = new System.Drawing.Point(30, 250);
             this.button5.Name = "button5";
@@ -393,7 +393,7 @@ namespace GPIBReaderWinForms
             // 
             this.button6.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.button6.BorderRadius = 8;
-            this.button6.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button6.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button6.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.button6.Location = new System.Drawing.Point(30, 80);
             this.button6.Name = "button6";
@@ -406,7 +406,7 @@ namespace GPIBReaderWinForms
             // 
             this.button4.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.button4.BorderRadius = 8;
-            this.button4.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.button4.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.button4.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.button4.Location = new System.Drawing.Point(120, 170);
             this.button4.Name = "button4";
@@ -419,7 +419,7 @@ namespace GPIBReaderWinForms
             // 
             this.button3.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.button3.BorderRadius = 8;
-            this.button3.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
+            this.button3.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.button3.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.button3.Location = new System.Drawing.Point(260, 170);
             this.button3.Name = "button3";
@@ -432,7 +432,7 @@ namespace GPIBReaderWinForms
             // 
             this.button2.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.button2.BorderRadius = 8;
-            this.button2.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button2.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.button2.Location = new System.Drawing.Point(140, 250);
             this.button2.Name = "button2";
@@ -445,7 +445,7 @@ namespace GPIBReaderWinForms
             // 
             this.button1.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.button1.BorderRadius = 8;
-            this.button1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.button1.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Bold);
             this.button1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.button1.Location = new System.Drawing.Point(140, 80);
             this.button1.Name = "button1";
@@ -499,7 +499,7 @@ namespace GPIBReaderWinForms
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Medium);
+            this.label14.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 11F, System.Drawing.FontStyle.Bold);
             this.label14.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label14.Location = new System.Drawing.Point(30, 280);
             this.label14.Name = "label14";
@@ -510,7 +510,7 @@ namespace GPIBReaderWinForms
             // label15
             // 
             this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label15.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.label15.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label15.Location = new System.Drawing.Point(180, 340);
             this.label15.Name = "label15";
@@ -521,7 +521,7 @@ namespace GPIBReaderWinForms
             // label16
             // 
             this.label16.AutoSize = true;
-            this.label16.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label16.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.label16.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label16.Location = new System.Drawing.Point(180, 310);
             this.label16.Name = "label16";
@@ -534,7 +534,7 @@ namespace GPIBReaderWinForms
             this.ZDataPoints.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ZDataPoints.BorderRadius = 6;
             this.ZDataPoints.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.ZDataPoints.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ZDataPoints.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.ZDataPoints.Location = new System.Drawing.Point(30, 335);
             this.ZDataPoints.Name = "ZDataPoints";
             this.ZDataPoints.Size = new System.Drawing.Size(140, 25);
@@ -546,7 +546,7 @@ namespace GPIBReaderWinForms
             this.ZSize.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.ZSize.BorderRadius = 6;
             this.ZSize.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.ZSize.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.ZSize.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.ZSize.Location = new System.Drawing.Point(30, 305);
             this.ZSize.Name = "ZSize";
             this.ZSize.Size = new System.Drawing.Size(140, 25);
@@ -566,7 +566,7 @@ namespace GPIBReaderWinForms
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Medium);
+            this.label13.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 11F, System.Drawing.FontStyle.Bold);
             this.label13.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label13.Location = new System.Drawing.Point(30, 170);
             this.label13.Name = "label13";
@@ -577,7 +577,7 @@ namespace GPIBReaderWinForms
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Medium);
+            this.label12.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 11F, System.Drawing.FontStyle.Bold);
             this.label12.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label12.Location = new System.Drawing.Point(30, 60);
             this.label12.Name = "label12";
@@ -589,7 +589,7 @@ namespace GPIBReaderWinForms
             // 
             this.btnFitToScreen.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.btnFitToScreen.BorderRadius = 8;
-            this.btnFitToScreen.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Medium);
+            this.btnFitToScreen.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.btnFitToScreen.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(98)))), ((int)(((byte)(104)))));
             this.btnFitToScreen.Location = new System.Drawing.Point(320, 430);
             this.btnFitToScreen.Name = "btnFitToScreen";
@@ -602,7 +602,7 @@ namespace GPIBReaderWinForms
             // 
             this.JogToHigh.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(193)))), ((int)(((byte)(7)))));
             this.JogToHigh.BorderRadius = 8;
-            this.JogToHigh.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Medium);
+            this.JogToHigh.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.JogToHigh.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.JogToHigh.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(173)))), ((int)(((byte)(0)))));
             this.JogToHigh.Location = new System.Drawing.Point(480, 430);
@@ -616,7 +616,7 @@ namespace GPIBReaderWinForms
             // 
             this.StopScan.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(220)))), ((int)(((byte)(53)))), ((int)(((byte)(69)))));
             this.StopScan.BorderRadius = 8;
-            this.StopScan.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Medium);
+            this.StopScan.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.StopScan.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
             this.StopScan.Location = new System.Drawing.Point(680, 470);
             this.StopScan.Name = "StopScan";
@@ -628,7 +628,7 @@ namespace GPIBReaderWinForms
             // 
             this.RunScan.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(40)))), ((int)(((byte)(167)))), ((int)(((byte)(69)))));
             this.RunScan.BorderRadius = 8;
-            this.RunScan.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Medium);
+            this.RunScan.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.RunScan.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
             this.RunScan.Location = new System.Drawing.Point(680, 430);
             this.RunScan.Name = "RunScan";
@@ -640,7 +640,7 @@ namespace GPIBReaderWinForms
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label11.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.label11.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label11.Location = new System.Drawing.Point(180, 120);
             this.label11.Name = "label11";
@@ -651,7 +651,7 @@ namespace GPIBReaderWinForms
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label10.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.label10.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label10.Location = new System.Drawing.Point(180, 230);
             this.label10.Name = "label10";
@@ -662,7 +662,7 @@ namespace GPIBReaderWinForms
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label9.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.label9.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label9.Location = new System.Drawing.Point(180, 200);
             this.label9.Name = "label9";
@@ -673,7 +673,7 @@ namespace GPIBReaderWinForms
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.label8.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.label8.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
             this.label8.Location = new System.Drawing.Point(180, 90);
             this.label8.Name = "label8";
@@ -686,7 +686,7 @@ namespace GPIBReaderWinForms
             this.XDataPoints.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.XDataPoints.BorderRadius = 6;
             this.XDataPoints.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.XDataPoints.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.XDataPoints.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.XDataPoints.Location = new System.Drawing.Point(30, 225);
             this.XDataPoints.Name = "XDataPoints";
             this.XDataPoints.Size = new System.Drawing.Size(140, 25);
@@ -698,7 +698,7 @@ namespace GPIBReaderWinForms
             this.XSize.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.XSize.BorderRadius = 6;
             this.XSize.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.XSize.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.XSize.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.XSize.Location = new System.Drawing.Point(30, 195);
             this.XSize.Name = "XSize";
             this.XSize.Size = new System.Drawing.Size(140, 25);
@@ -710,7 +710,7 @@ namespace GPIBReaderWinForms
             this.YDataPoints.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.YDataPoints.BorderRadius = 6;
             this.YDataPoints.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.YDataPoints.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.YDataPoints.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.YDataPoints.Location = new System.Drawing.Point(30, 115);
             this.YDataPoints.Name = "YDataPoints";
             this.YDataPoints.Size = new System.Drawing.Size(140, 25);
@@ -722,7 +722,7 @@ namespace GPIBReaderWinForms
             this.YSize.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.YSize.BorderRadius = 6;
             this.YSize.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.YSize.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.YSize.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.YSize.Location = new System.Drawing.Point(30, 85);
             this.YSize.Name = "YSize";
             this.YSize.Size = new System.Drawing.Size(140, 25);
@@ -733,7 +733,7 @@ namespace GPIBReaderWinForms
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Font = new System.Drawing.Font("Segoe UI", 16F, System.Drawing.FontStyle.Bold);
+            this.label7.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 16F, System.Drawing.FontStyle.Bold);
             this.label7.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(64)))), ((int)(((byte)(64)))), ((int)(((byte)(64)))));
             this.label7.Location = new System.Drawing.Point(30, 20);
             this.label7.Name = "label7";
@@ -772,7 +772,7 @@ namespace GPIBReaderWinForms
             this.ClientSize = new System.Drawing.Size(1140, 640);
             this.Controls.Add(this.powerPanel);
             this.Controls.Add(this.tabControl1);
-            this.Font = new System.Drawing.Font("Segoe UI", 9F);
+            this.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 9F, System.Drawing.FontStyle.Regular);
             this.Name = "MainForm";
             this.Text = "PICPS Laser Control System";
             this.tabControl1.ResumeLayout(false);

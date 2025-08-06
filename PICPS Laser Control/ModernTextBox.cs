@@ -37,7 +37,7 @@ namespace GPIBReaderWinForms
                      ControlStyles.ResizeRedraw, true);
             
             BorderStyle = BorderStyle.None;
-            Font = new Font("Segoe UI", 9F);
+            Font = new Font(new FontFamily("Segoe UI"), 9F, FontStyle.Regular);
             BackColor = Color.White;
             ForeColor = Color.FromArgb(64, 64, 64);
             Padding = new Padding(8, 8, 8, 8);
