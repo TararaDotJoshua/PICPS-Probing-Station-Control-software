@@ -7,18 +7,18 @@ namespace GPIBReaderWinForms
 {
     public class ModernTextBox : TextBox
     {
-        private System.Drawing.Color _borderColor = System.Drawing.Color.FromArgb(200, 200, 200);
-        private System.Drawing.Color _focusedBorderColor = System.Drawing.Color.FromArgb(0, 123, 255);
+        private Color _borderColor = Color.FromArgb(200, 200, 200);
+        private Color _focusedBorderColor = Color.FromArgb(0, 123, 255);
         private int _borderRadius = 6;
         private bool _isFocused = false;
 
-        public System.Drawing.Color BorderColor
+        public Color BorderColor
         {
             get => _borderColor;
             set { _borderColor = value; Invalidate(); }
         }
 
-        public System.Drawing.Color FocusedBorderColor
+        public Color FocusedBorderColor
         {
             get => _focusedBorderColor;
             set { _focusedBorderColor = value; Invalidate(); }
@@ -37,10 +37,10 @@ namespace GPIBReaderWinForms
                      ControlStyles.ResizeRedraw, true);
             
             BorderStyle = BorderStyle.None;
-            Font = new System.Drawing.Font("Segoe UI", 9F);
-            BackColor = System.Drawing.Color.White;
-            ForeColor = System.Drawing.Color.FromArgb(64, 64, 64);
-            Padding = new System.Windows.Forms.Padding(8, 8, 8, 8);
+            Font = new Font("Segoe UI", 9F);
+            BackColor = Color.White;
+            ForeColor = Color.FromArgb(64, 64, 64);
+            Padding = new Padding(8, 8, 8, 8);
         }
 
         protected override void OnEnter(EventArgs e)
@@ -62,8 +62,8 @@ namespace GPIBReaderWinForms
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            System.Drawing.Rectangle rect = new System.Drawing.Rectangle(0, 0, Width - 1, Height - 1);
-            System.Drawing.Color currentBorderColor = _isFocused ? _focusedBorderColor : _borderColor;
+            Rectangle rect = new Rectangle(0, 0, Width - 1, Height - 1);
+            Color currentBorderColor = _isFocused ? _focusedBorderColor : _borderColor;
 
             using (GraphicsPath path = GetRoundedRectangle(rect, _borderRadius))
             {
@@ -72,18 +72,18 @@ namespace GPIBReaderWinForms
                     g.FillPath(brush, path);
                 }
 
-                using (System.Drawing.Pen pen = new System.Drawing.Pen(currentBorderColor, _isFocused ? 2 : 1))
+                using (Pen pen = new Pen(currentBorderColor, _isFocused ? 2 : 1))
                 {
                     g.DrawPath(pen, path);
                 }
             }
 
             // Draw text manually
-            System.Drawing.Rectangle textRect = new System.Drawing.Rectangle(8, (Height - Font.Height) / 2, Width - 16, Font.Height);
+            Rectangle textRect = new Rectangle(8, (Height - Font.Height) / 2, Width - 16, Font.Height);
             TextRenderer.DrawText(g, Text, Font, textRect, ForeColor, TextFormatFlags.Left | TextFormatFlags.VerticalCenter);
         }
 
-        private GraphicsPath GetRoundedRectangle(System.Drawing.Rectangle rect, int radius)
+        private GraphicsPath GetRoundedRectangle(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
             int diameter = radius * 2;

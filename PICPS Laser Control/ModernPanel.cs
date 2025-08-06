@@ -7,19 +7,19 @@ namespace GPIBReaderWinForms
 {
     public class ModernPanel : Panel
     {
-        private System.Drawing.Color _backgroundColor = System.Drawing.Color.White;
-        private System.Drawing.Color _borderColor = System.Drawing.Color.FromArgb(230, 230, 230);
+        private Color _backgroundColor = Color.White;
+        private Color _borderColor = Color.FromArgb(230, 230, 230);
         private int _borderRadius = 12;
         private int _borderWidth = 1;
         private bool _hasShadow = true;
 
-        public System.Drawing.Color BackgroundColor
+        public Color BackgroundColor
         {
             get => _backgroundColor;
             set { _backgroundColor = value; Invalidate(); }
         }
 
-        public System.Drawing.Color BorderColor
+        public Color BorderColor
         {
             get => _borderColor;
             set { _borderColor = value; Invalidate(); }
@@ -44,7 +44,7 @@ namespace GPIBReaderWinForms
                      ControlStyles.ResizeRedraw | 
                      ControlStyles.SupportsTransparentBackColor, true);
             
-            BackColor = System.Drawing.Color.Transparent;
+            BackColor = Color.Transparent;
         }
 
         protected override void OnPaint(PaintEventArgs e)
@@ -52,20 +52,20 @@ namespace GPIBReaderWinForms
             Graphics g = e.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            System.Drawing.Rectangle rect = ClientRectangle;
+            Rectangle rect = ClientRectangle;
             
             if (_hasShadow)
             {
                 // Draw shadow
-                System.Drawing.Rectangle shadowRect = new System.Drawing.Rectangle(rect.X + 2, rect.Y + 2, rect.Width, rect.Height);
+                Rectangle shadowRect = new Rectangle(rect.X + 2, rect.Y + 2, rect.Width, rect.Height);
                 using (GraphicsPath shadowPath = GetRoundedRectangle(shadowRect, _borderRadius))
                 {
-                    using (SolidBrush shadowBrush = new SolidBrush(System.Drawing.Color.FromArgb(20, 0, 0, 0)))
+                    using (SolidBrush shadowBrush = new SolidBrush(Color.FromArgb(20, 0, 0, 0)))
                     {
                         g.FillPath(shadowBrush, shadowPath);
                     }
                 }
-                rect = new System.Drawing.Rectangle(rect.X, rect.Y, rect.Width - 2, rect.Height - 2);
+                rect = new Rectangle(rect.X, rect.Y, rect.Width - 2, rect.Height - 2);
             }
 
             using (GraphicsPath path = GetRoundedRectangle(rect, _borderRadius))
@@ -79,7 +79,7 @@ namespace GPIBReaderWinForms
                 // Draw border
                 if (_borderWidth > 0)
                 {
-                    using (System.Drawing.Pen pen = new System.Drawing.Pen(_borderColor, _borderWidth))
+                    using (Pen pen = new Pen(_borderColor, _borderWidth))
                     {
                         g.DrawPath(pen, path);
                     }
@@ -87,7 +87,7 @@ namespace GPIBReaderWinForms
             }
         }
 
-        private GraphicsPath GetRoundedRectangle(System.Drawing.Rectangle rect, int radius)
+        private GraphicsPath GetRoundedRectangle(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
             int diameter = radius * 2;
