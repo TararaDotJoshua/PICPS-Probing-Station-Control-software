@@ -176,7 +176,6 @@ namespace GPIBReaderWinForms
             this.modernPanel1.HasShadow = true;
             this.modernPanel1.Location = new System.Drawing.Point(20, 450);
             this.modernPanel1.Name = "modernPanel1";
-            this.modernPanel1.SeamlessMode = true;
             this.modernPanel1.Size = new System.Drawing.Size(850, 100);
             this.modernPanel1.TabIndex = 20;
             // 
@@ -279,7 +278,6 @@ namespace GPIBReaderWinForms
             this.modernPanel2.HasShadow = true;
             this.modernPanel2.Location = new System.Drawing.Point(20, 60);
             this.modernPanel2.Name = "modernPanel2";
-            this.modernPanel2.SeamlessMode = true;
             this.modernPanel2.Size = new System.Drawing.Size(400, 370);
             this.modernPanel2.TabIndex = 21;
             // 
@@ -298,7 +296,6 @@ namespace GPIBReaderWinForms
             this.modernPanel3.HasShadow = true;
             this.modernPanel3.Location = new System.Drawing.Point(450, 60);
             this.modernPanel3.Name = "modernPanel3";
-            this.modernPanel3.SeamlessMode = true;
             this.modernPanel3.Size = new System.Drawing.Size(420, 370);
             this.modernPanel3.TabIndex = 22;
             // 
@@ -497,7 +494,6 @@ namespace GPIBReaderWinForms
             this.modernPanel4.HasShadow = true;
             this.modernPanel4.Location = new System.Drawing.Point(20, 20);
             this.modernPanel4.Name = "modernPanel4";
-            this.modernPanel4.SeamlessMode = true;
             this.modernPanel4.Size = new System.Drawing.Size(850, 530);
             this.modernPanel4.TabIndex = 0;
             // 
@@ -760,7 +756,6 @@ namespace GPIBReaderWinForms
             this.powerPanel.HasShadow = true;
             this.powerPanel.Location = new System.Drawing.Point(20, 20);
             this.powerPanel.Name = "powerPanel";
-            this.powerPanel.SeamlessMode = false;
             this.powerPanel.Size = new System.Drawing.Size(200, 340);
             this.powerPanel.TabIndex = 6;
             // 
