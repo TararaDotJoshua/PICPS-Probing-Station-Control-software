@@ -1,3 +1,4 @@
+using System.Drawing;
 using GPIBReaderWinForms;
 using HelixToolkit.Wpf;
 using NationalInstruments.NI4882;

@@ -7,20 +7,20 @@ namespace GPIBReaderWinForms
 {
     public class ModernButton : Button
     {
-        private Color _baseColor = Color.FromArgb(0, 123, 255);
-        private Color _hoverColor = Color.FromArgb(0, 86, 179);
-        private Color _pressedColor = Color.FromArgb(0, 69, 134);
+        private System.Drawing.Color _baseColor = System.Drawing.Color.FromArgb(0, 123, 255);
+        private System.Drawing.Color _hoverColor = System.Drawing.Color.FromArgb(0, 86, 179);
+        private System.Drawing.Color _pressedColor = System.Drawing.Color.FromArgb(0, 69, 134);
         private bool _isHovered = false;
         private bool _isPressed = false;
         private int _borderRadius = 8;
 
-        public Color BaseColor
+        public System.Drawing.Color BaseColor
         {
             get => _baseColor;
             set { _baseColor = value; Invalidate(); }
         }
 
-        public Color HoverColor
+        public System.Drawing.Color HoverColor
         {
             get => _hoverColor;
             set { _hoverColor = value; Invalidate(); }
@@ -39,12 +39,12 @@ namespace GPIBReaderWinForms
                      ControlStyles.ResizeRedraw | 
                      ControlStyles.SupportsTransparentBackColor, true);
             
-            BackColor = Color.Transparent;
-            ForeColor = Color.White;
-            Font = new Font("Segoe UI", 9F, FontStyle.Regular);
+            BackColor = System.Drawing.Color.Transparent;
+            ForeColor = System.Drawing.Color.White;
+            Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular);
             FlatStyle = FlatStyle.Flat;
             FlatAppearance.BorderSize = 0;
-            Size = new Size(120, 40);
+            Size = new System.Drawing.Size(120, 40);
         }
 
         protected override void OnMouseEnter(EventArgs e)
@@ -80,7 +80,7 @@ namespace GPIBReaderWinForms
             Graphics g = pevent.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
 
-            Color currentColor = _baseColor;
+            System.Drawing.Color currentColor = _baseColor;
             if (_isPressed) currentColor = _pressedColor;
             else if (_isHovered) currentColor = _hoverColor;
 
@@ -96,7 +96,7 @@ namespace GPIBReaderWinForms
                 TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter);
         }
 
-        private GraphicsPath GetRoundedRectangle(Rectangle rect, int radius)
+        private GraphicsPath GetRoundedRectangle(System.Drawing.Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
             int diameter = radius * 2;
