@@ -252,7 +252,7 @@ namespace GPIBReaderWinForms
             if (statusIndicator != null)
             {
                 statusIndicator.BackColor = isLaserActive ? 
-                    Color.FromArgb(40, 167, 69) : // Green when active
+                    Color.FromArgb(0, 123, 255) : // Blue when active
                     Color.FromArgb(220, 53, 69);  // Red when inactive
             }
         }

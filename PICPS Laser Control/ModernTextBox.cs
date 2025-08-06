@@ -7,7 +7,7 @@ namespace GPIBReaderWinForms
 {
     public class ModernTextBox : TextBox
     {
-        private Color _borderColor = Color.FromArgb(200, 200, 200);
+        private Color _borderColor = Color.FromArgb(0, 123, 255);
         private Color _focusedBorderColor = Color.FromArgb(0, 123, 255);
         private int _borderRadius = 6;
         private bool _isFocused = false;
