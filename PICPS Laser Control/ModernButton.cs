@@ -79,7 +79,14 @@ namespace GPIBReaderWinForms
         {
             Graphics g = pevent.Graphics;
             g.SmoothingMode = SmoothingMode.AntiAlias;
-            g.Clear(Parent.BackColor); // Clear with parent background for transparency
+            
+            // Clear with parent background color for seamless blending
+            Color parentBg = Parent?.BackColor ?? Color.White;
+            if (Parent is ModernPanel modernPanel)
+            {
+                parentBg = modernPanel.BackgroundColor;
+            }
+            g.Clear(parentBg);
 
             Color currentColor = _baseColor;
             if (_isPressed) currentColor = _pressedColor;

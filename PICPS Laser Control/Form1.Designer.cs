@@ -97,7 +97,7 @@ namespace GPIBReaderWinForms
             this.btnStart.BorderRadius = 8;
             this.btnStart.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.btnStart.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(33)))), ((int)(((byte)(136)))), ((int)(((byte)(56)))));
-            this.btnStart.Location = new System.Drawing.Point(20, 120);
+            this.btnStart.Location = new System.Drawing.Point(20, 140);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(140, 45);
             this.btnStart.TabIndex = 1;
@@ -110,7 +110,7 @@ namespace GPIBReaderWinForms
             this.btnStop.BorderRadius = 8;
             this.btnStop.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Bold);
             this.btnStop.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(35)))), ((int)(((byte)(51)))));
-            this.btnStop.Location = new System.Drawing.Point(20, 175);
+            this.btnStop.Location = new System.Drawing.Point(20, 195);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(140, 45);
             this.btnStop.TabIndex = 2;
@@ -134,7 +134,7 @@ namespace GPIBReaderWinForms
             this.btnViewLog.BorderRadius = 8;
             this.btnViewLog.Font = new System.Drawing.Font(new System.Drawing.FontFamily("Segoe UI"), 10F, System.Drawing.FontStyle.Regular);
             this.btnViewLog.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(98)))), ((int)(((byte)(104)))));
-            this.btnViewLog.Location = new System.Drawing.Point(20, 240);
+            this.btnViewLog.Location = new System.Drawing.Point(20, 260);
             this.btnViewLog.Name = "btnViewLog";
             this.btnViewLog.Size = new System.Drawing.Size(140, 40);
             this.btnViewLog.TabIndex = 4;
@@ -756,7 +756,7 @@ namespace GPIBReaderWinForms
             this.powerPanel.HasShadow = true;
             this.powerPanel.Location = new System.Drawing.Point(20, 20);
             this.powerPanel.Name = "powerPanel";
-            this.powerPanel.Size = new System.Drawing.Size(200, 320);
+            this.powerPanel.Size = new System.Drawing.Size(200, 340);
             this.powerPanel.TabIndex = 6;
             // 
             // statusIndicator
