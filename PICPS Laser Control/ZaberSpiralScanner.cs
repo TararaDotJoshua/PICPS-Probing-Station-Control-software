@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Windows.Forms.Integration;
-using HelixToolkit.Wpf;
 using System.Windows.Controls;
+using System.Windows.Input;
+using HelixToolkit.Wpf;
 using Media3DPoint3D = System.Windows.Media.Media3D.Point3D;
 using System.Windows.Media.Media3D;
 using System.Windows.Media;
@@ -15,16 +16,26 @@ namespace GPIBReaderWinForms
     public class ZaberSpiralScanner
     {
         private readonly Device gpibDevice;
+
         private readonly int stepsX, stepsY, stepsZ;
         private readonly double startX, endX, startY, endY, startZ, endZ;
         private readonly double stepX, stepY, stepZ;
+
         private readonly ElementHost elementHost;
-        private readonly List<Tuple<double, double, double, float>> scanData = new List<Tuple<double, double, double, float>>();
+        private HelixViewport3D viewport;
+
+        private readonly List<Tuple<double, double, double, float>> scanData =
+            new List<Tuple<double, double, double, float>>();
+        private readonly Dictionary<Visual3D, Tuple<double, double, double, float>> visualToData =
+            new Dictionary<Visual3D, Tuple<double, double, double, float>>();
+
         private readonly bool zEnabled;
 
-        public ZaberSpiralScanner(Device gpib, double rangeXmm, double rangeYmm, double rangeZmm,
-                                  int pointsX, int pointsY, int pointsZ,
-                                  ElementHost helixHost, bool enableZ)
+        public ZaberSpiralScanner(
+            Device gpib,
+            double rangeXmm, double rangeYmm, double rangeZmm,
+            int pointsX, int pointsY, int pointsZ,
+            ElementHost helixHost, bool enableZ)
         {
             gpibDevice = gpib;
             elementHost = helixHost;
@@ -32,14 +43,14 @@ namespace GPIBReaderWinForms
 
             stepsX = pointsX;
             stepsY = pointsY;
-            stepsZ = enableZ ? pointsZ : 1;
+            stepsZ = enableZ ? Math.Max(1, pointsZ) : 1;
 
-            double centerX = ZaberController.GetPosition(2);
-            double centerY = ZaberController.GetPosition(3);
-            double centerZ = ZaberController.GetPosition(1);
+            double centerX = ZaberController.GetPosition(2); // X
+            double centerY = ZaberController.GetPosition(3); // Y
+            double centerZ = ZaberController.GetPosition(1); // Z
 
             if (double.IsNaN(centerX) || double.IsNaN(centerY) || (enableZ && double.IsNaN(centerZ)))
-                throw new InvalidOperationException("❌ Cannot determine current probe center position.");
+                throw new InvalidOperationException("Cannot determine current probe center position.");
 
             startX = centerX - rangeXmm / 2.0;
             endX = centerX + rangeXmm / 2.0;
@@ -48,61 +59,119 @@ namespace GPIBReaderWinForms
             startZ = enableZ ? centerZ - rangeZmm / 2.0 : centerZ;
             endZ = enableZ ? centerZ + rangeZmm / 2.0 : centerZ;
 
-            stepX = rangeXmm / (pointsX - 1);
-            stepY = rangeYmm / (pointsY - 1);
-            stepZ = enableZ ? rangeZmm / (pointsZ - 1) : 0;
+            stepX = pointsX > 1 ? rangeXmm / (pointsX - 1) : 0.0;
+            stepY = pointsY > 1 ? rangeYmm / (pointsY - 1) : 0.0;
+            stepZ = (enableZ && pointsZ > 1) ? rangeZmm / (pointsZ - 1) : 0.0;
 
-            Console.WriteLine($"Zaber Scanner Init (Z enabled: {enableZ})");
-            Console.WriteLine($"Center: X={centerX:F2}, Y={centerY:F2}, Z={centerZ:F2}");
-            Console.WriteLine($"X range: {startX:F2} → {endX:F2}, step: {stepX:F2} mm");
-            Console.WriteLine($"Y range: {startY:F2} → {endY:F2}, step: {stepY:F2} mm");
+            Console.WriteLine("Zaber Scanner Init");
+            Console.WriteLine($"  Center: X={centerX:F4}, Y={centerY:F4}, Z={centerZ:F4}");
+            Console.WriteLine($"  X: {startX:F4} → {endX:F4}  (step {stepX:F4}, {stepsX} pts)");
+            Console.WriteLine($"  Y: {startY:F4} → {endY:F4}  (step {stepY:F4}, {stepsY} pts)");
             if (enableZ)
-                Console.WriteLine($"Z range: {startZ:F2} → {endZ:F2}, step: {stepZ:F2} mm");
+                Console.WriteLine($"  Z: {startZ:F4} → {endZ:F4}  (step {stepZ:F4}, {stepsZ} layers)");
         }
 
         public void Execute()
         {
             Console.WriteLine("Starting scan...");
+            SetupViewport();
             JogToStart();
             ScanVolume();
             MoveToMaxPower();
-            UpdateHelix3D();
+            DrawPoints();
             Console.WriteLine("Scan complete.");
+        }
+
+        private void SetupViewport()
+        {
+            elementHost.Invoke(new Action(delegate
+            {
+                viewport = new HelixViewport3D();
+                viewport.ShowViewCube = false;
+                viewport.ShowCoordinateSystem = false;
+
+                // Camera; ZoomExtents after drawing
+                viewport.Camera = new PerspectiveCamera(
+                    new Media3DPoint3D(0, 0, 200),
+                    new Vector3D(0, 0, -1),
+                    new Vector3D(0, 1, 0),
+                    45);
+
+                // Lights so spheres are bright
+                viewport.Children.Add(new SunLight());
+                viewport.Children.Add(new DefaultLights());
+
+                // Click handler for jog-to-point
+                viewport.MouseDown += Viewport_MouseDown;
+
+                elementHost.Child = viewport;
+            }));
+        }
+
+        private void Viewport_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                var pos = e.GetPosition(viewport);
+                var hits = Viewport3DHelper.FindHits(viewport.Viewport, pos);
+                if (hits == null || hits.Count == 0) return;
+
+                for (int i = 0; i < hits.Count; i++)
+                {
+                    var v = hits[i].Visual as Visual3D;
+                    if (v != null && visualToData.ContainsKey(v))
+                    {
+                        var data = visualToData[v];
+                        double x = data.Item1;
+                        double y = data.Item2;
+                        double z = data.Item3;
+
+                        Console.WriteLine($"[Click→Jog] X={x:F4}, Y={y:F4}, Z={z:F4}");
+                        ZaberController.MoveAbsolute(2, x);
+                        ZaberController.MoveAbsolute(3, y);
+                        if (zEnabled) ZaberController.MoveAbsolute(1, z);
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Hit test/jog failed: " + ex.Message);
+            }
         }
 
         private void JogToStart()
         {
             Console.WriteLine("Jogging to scan start position...");
-            ZaberController.MoveAbsolute(2, startX); // X
-            ZaberController.MoveAbsolute(3, startY); // Y
-            if (zEnabled)
-                ZaberController.MoveAbsolute(1, startZ); // Z
-            Thread.Sleep(500);
+            ZaberController.MoveAbsolute(2, startX);
+            ZaberController.MoveAbsolute(3, startY);
+            if (zEnabled) ZaberController.MoveAbsolute(1, startZ);
+            Thread.Sleep(300);
         }
 
         private void ScanVolume()
         {
-            for (int z = 0; z < stepsZ; z++)
+            for (int zi = 0; zi < stepsZ; zi++)
             {
-                double zPos = zEnabled ? startZ + z * stepZ : startZ;
+                double zPos = zEnabled ? startZ + zi * stepZ : startZ;
                 if (zEnabled)
                 {
-                    Console.WriteLine($"→ Z = {zPos:F2} mm");
+                    Console.WriteLine($"  Layer Z = {zPos:F4}");
                     ZaberController.MoveAbsolute(1, zPos);
-                    Thread.Sleep(300);
+                    Thread.Sleep(200);
                 }
 
-                for (int y = 0; y < stepsY; y++)
+                for (int yi = 0; yi < stepsY; yi++)
                 {
-                    if (y % 2 == 0)
+                    if ((yi % 2) == 0)
                     {
-                        for (int x = 0; x < stepsX; x++)
-                            MoveAndLog(x, y, zPos);
+                        for (int xi = 0; xi < stepsX; xi++)
+                            MoveAndLog(xi, yi, zPos);
                     }
                     else
                     {
-                        for (int x = stepsX - 1; x >= 0; x--)
-                            MoveAndLog(x, y, zPos);
+                        for (int xi = stepsX - 1; xi >= 0; xi--)
+                            MoveAndLog(xi, yi, zPos);
                     }
                 }
             }
@@ -110,90 +179,118 @@ namespace GPIBReaderWinForms
 
         private void MoveAndLog(int xIndex, int yIndex, double zPos)
         {
-            double x = startX + xIndex * stepX;
-            double y = startY + yIndex * stepY;
+            double x = stepsX > 1 ? startX + xIndex * stepX : startX;
+            double y = stepsY > 1 ? startY + yIndex * stepY : startY;
 
             ZaberController.MoveAbsolute(2, x);
             ZaberController.MoveAbsolute(3, y);
-            Thread.Sleep(150);
+            Thread.Sleep(120);
 
             float? power = ReadPower();
+            float p = power.HasValue ? power.Value : 0f;
+
             if (power.HasValue)
-            {
-                Console.WriteLine($"X={x:F2} Y={y:F2} Z={zPos:F2} → Power={power.Value:F2} dBm");
-                scanData.Add(Tuple.Create(x, y, zPos, power.Value));
-                PowerLogger.Log(power.Value);
-            }
+                Console.WriteLine($"  X={x:F4}, Y={y:F4}, Z={zPos:F4}  →  {p:F3} dBm");
             else
-            {
-                Console.WriteLine("    Power read failed.");
-                scanData.Add(Tuple.Create(x, y, zPos, 0f));
-            }
+                Console.WriteLine($"  X={x:F4}, Y={y:F4}, Z={zPos:F4}  →  (power read failed)");
+
+            scanData.Add(Tuple.Create(x, y, zPos, p));
+            PowerLogger.Log(p);
         }
 
         private void MoveToMaxPower()
         {
             if (scanData.Count == 0) return;
 
-            var maxPoint = scanData[0];
-            foreach (var pt in scanData)
-                if (pt.Item4 > maxPoint.Item4) maxPoint = pt;
+            var maxPt = scanData[0];
+            for (int i = 1; i < scanData.Count; i++)
+                if (scanData[i].Item4 > maxPt.Item4) maxPt = scanData[i];
 
-            Console.WriteLine($"Moving to max power point: X={maxPoint.Item1:F2}, Y={maxPoint.Item2:F2}, Z={maxPoint.Item3:F2}, Power={maxPoint.Item4:F2} dBm");
-            ZaberController.MoveAbsolute(2, maxPoint.Item1);
-            ZaberController.MoveAbsolute(3, maxPoint.Item2);
-            if (zEnabled)
-                ZaberController.MoveAbsolute(1, maxPoint.Item3);
-            Thread.Sleep(500);
+            Console.WriteLine($"Move to max: X={maxPt.Item1:F4}, Y={maxPt.Item2:F4}, Z={maxPt.Item3:F4}, {maxPt.Item4:F3} dBm");
+            ZaberController.MoveAbsolute(2, maxPt.Item1);
+            ZaberController.MoveAbsolute(3, maxPt.Item2);
+            if (zEnabled) ZaberController.MoveAbsolute(1, maxPt.Item3);
+            Thread.Sleep(250);
         }
 
-        private void UpdateHelix3D()
+        private void DrawPoints()
         {
             elementHost.Invoke(new Action(delegate
             {
-                HelixViewport3D viewport = new HelixViewport3D();
-                viewport.Camera = new PerspectiveCamera(new Media3DPoint3D(0, 0, 100), new Vector3D(0, 0, -1), new Vector3D(0, 1, 0), 45);
-                viewport.Children.Add(new SunLight());
+                if (viewport == null) return;
 
-                float minPower = float.MaxValue, maxPower = float.MinValue;
-                foreach (var pt in scanData)
+                // keep only lights
+                var keep = new List<Visual3D>();
+                for (int i = 0; i < viewport.Children.Count; i++)
                 {
-                    if (pt.Item4 < minPower) minPower = pt.Item4;
-                    if (pt.Item4 > maxPower) maxPower = pt.Item4;
+                    var v = viewport.Children[i];
+                    if (v is SunLight || v is DefaultLights)
+                        keep.Add(v);
                 }
+                viewport.Children.Clear();
+                for (int i = 0; i < keep.Count; i++) viewport.Children.Add(keep[i]);
 
-                foreach (var pt in scanData)
+                visualToData.Clear();
+
+                float minP = float.MaxValue, maxP = float.MinValue;
+                for (int i = 0; i < scanData.Count; i++)
                 {
-                    double norm = Normalize(pt.Item4, minPower, maxPower);
-                    Color color = GetGradientColor(norm);
+                    float pv = scanData[i].Item4;
+                    if (pv < minP) minP = pv;
+                    if (pv > maxP) maxP = pv;
+                }
+                if (maxP - minP < 1e-6f) { minP -= 0.5f; maxP += 0.5f; }
 
-                    SphereVisual3D sphere = new SphereVisual3D();
-                    sphere.Radius = stepX / 2;
+                double baseRadius = 0.5 * Math.Max(1e-6, Math.Min(
+                    stepsX > 1 ? stepX : double.MaxValue,
+                    stepsY > 1 ? stepY : double.MaxValue));
+                if (double.IsInfinity(baseRadius) || double.IsNaN(baseRadius)) baseRadius = 0.1;
+                if (baseRadius < 0.03) baseRadius = 0.03;
+
+                for (int i = 0; i < scanData.Count; i++)
+                {
+                    var pt = scanData[i];
+                    double norm = Normalize(pt.Item4, minP, maxP);
+                    Color c = GetGradientColor(norm);
+
+                    var sphere = new SphereVisual3D();
+                    sphere.Radius = baseRadius;                  // lattice spacing = 2*radius
                     sphere.Center = new Media3DPoint3D(pt.Item1, pt.Item2, pt.Item3);
-                    sphere.Material = MaterialHelper.CreateMaterial(color);
+                    sphere.Material = MaterialHelper.CreateMaterial(c, 1.0);
+
                     viewport.Children.Add(sphere);
+                    visualToData[sphere] = pt;
                 }
+
+                // ensure lights exist
+                bool hasSun = false, hasDef = false;
+                for (int i = 0; i < viewport.Children.Count; i++)
+                {
+                    if (viewport.Children[i] is SunLight) hasSun = true;
+                    if (viewport.Children[i] is DefaultLights) hasDef = true;
+                }
+                if (!hasSun) viewport.Children.Add(new SunLight());
+                if (!hasDef) viewport.Children.Add(new DefaultLights());
 
                 viewport.ZoomExtents();
-                elementHost.Child = viewport;
             }));
         }
 
-        private double Normalize(float val, float min, float max)
+        private static double Normalize(float value, float min, float max)
         {
-            if (max - min < 1e-6) return 0;
-            double norm = (val - min) / (max - min);
-            if (norm < 0) return 0;
-            if (norm > 1) return 1;
-            return norm;
+            if (max - min < 1e-6f) return 0.0;
+            double t = (value - min) / (double)(max - min);
+            if (t < 0.0) t = 0.0;
+            if (t > 1.0) t = 1.0;
+            return t;
         }
 
-        private Color GetGradientColor(double t)
+        private static Color GetGradientColor(double t)
         {
             if (t < 0.25) return Colors.Red;
-            else if (t < 0.5) return Colors.Orange;
-            else if (t < 0.75) return Colors.Yellow;
-            else if (t < 0.9) return Colors.Green;
+            if (t < 0.50) return Colors.Orange;
+            if (t < 0.75) return Colors.Yellow;
+            if (t < 0.90) return Colors.Green;
             return Colors.Blue;
         }
 
@@ -203,9 +300,12 @@ namespace GPIBReaderWinForms
             {
                 gpibDevice.Write("POD?");
                 string response = gpibDevice.ReadString().Trim();
-                Match match = Regex.Match(response, @"[-+]?\d+\.\d+");
-                if (match.Success && float.TryParse(match.Value, out float power))
-                    return power;
+                var m = Regex.Match(response, @"[-+]?\d+\.\d+");
+                if (m.Success)
+                {
+                    float v;
+                    if (float.TryParse(m.Value, out v)) return v;
+                }
                 Console.WriteLine("    GPIB: invalid response.");
             }
             catch (Exception ex)

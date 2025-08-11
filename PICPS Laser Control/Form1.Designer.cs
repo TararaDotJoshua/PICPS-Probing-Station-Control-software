@@ -4,8 +4,6 @@ namespace GPIBReaderWinForms
     {
         private System.ComponentModel.IContainer components = null;
         private System.Windows.Forms.Label lblPower;
-        private ModernButton btnStart;
-        private ModernButton btnStop;
 
         protected override void Dispose(bool disposing)
         {
@@ -23,8 +21,6 @@ namespace GPIBReaderWinForms
             this.statusIndicator = new System.Windows.Forms.Panel();
             this.label1 = new System.Windows.Forms.Label();
             this.lblPower = new System.Windows.Forms.Label();
-            this.btnStart = new GPIBReaderWinForms.ModernButton();
-            this.btnStop = new GPIBReaderWinForms.ModernButton();
             this.btnViewLog = new GPIBReaderWinForms.ModernButton();
             this.modernPanel1 = new GPIBReaderWinForms.ModernPanel();
             this.label3 = new System.Windows.Forms.Label();
@@ -123,14 +119,12 @@ namespace GPIBReaderWinForms
             this.powerPanel.Controls.Add(this.statusIndicator);
             this.powerPanel.Controls.Add(this.label1);
             this.powerPanel.Controls.Add(this.lblPower);
-            this.powerPanel.Controls.Add(this.btnStart);
-            this.powerPanel.Controls.Add(this.btnStop);
             this.powerPanel.Controls.Add(this.btnViewLog);
             this.powerPanel.HasShadow = true;
             this.powerPanel.Location = new System.Drawing.Point(20, 20);
             this.powerPanel.Name = "powerPanel";
             this.powerPanel.SeamlessMode = false;
-            this.powerPanel.Size = new System.Drawing.Size(200, 382);
+            this.powerPanel.Size = new System.Drawing.Size(200, 236);
             this.powerPanel.TabIndex = 6;
             // 
             // statusIndicator
@@ -164,50 +158,16 @@ namespace GPIBReaderWinForms
             this.lblPower.TabIndex = 0;
             this.lblPower.Text = "--- dBm";
             // 
-            // btnStart
-            // 
-            this.btnStart.BackColor = System.Drawing.Color.Transparent;
-            this.btnStart.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.btnStart.BorderRadius = 8;
-            this.btnStart.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStart.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnStart.ForeColor = System.Drawing.Color.White;
-            this.btnStart.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
-            this.btnStart.Location = new System.Drawing.Point(32, 177);
-            this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(140, 45);
-            this.btnStart.TabIndex = 1;
-            this.btnStart.Text = "🚀 Start Laser";
-            this.btnStart.UseVisualStyleBackColor = false;
-            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
-            // 
-            // btnStop
-            // 
-            this.btnStop.BackColor = System.Drawing.Color.Transparent;
-            this.btnStop.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnStop.BorderRadius = 8;
-            this.btnStop.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnStop.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Bold);
-            this.btnStop.ForeColor = System.Drawing.Color.Gray;
-            this.btnStop.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.btnStop.Location = new System.Drawing.Point(32, 232);
-            this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(140, 45);
-            this.btnStop.TabIndex = 2;
-            this.btnStop.Text = "⏹ Stop Laser";
-            this.btnStop.UseVisualStyleBackColor = false;
-            this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
-            // 
             // btnViewLog
             // 
             this.btnViewLog.BackColor = System.Drawing.Color.Transparent;
-            this.btnViewLog.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(108)))), ((int)(((byte)(117)))), ((int)(((byte)(125)))));
+            this.btnViewLog.BaseColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
             this.btnViewLog.BorderRadius = 8;
             this.btnViewLog.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnViewLog.Font = new System.Drawing.Font("Segoe UI", 10F);
             this.btnViewLog.ForeColor = System.Drawing.Color.White;
-            this.btnViewLog.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(90)))), ((int)(((byte)(98)))), ((int)(((byte)(104)))));
-            this.btnViewLog.Location = new System.Drawing.Point(32, 306);
+            this.btnViewLog.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(123)))), ((int)(((byte)(255)))));
+            this.btnViewLog.Location = new System.Drawing.Point(28, 167);
             this.btnViewLog.Name = "btnViewLog";
             this.btnViewLog.Size = new System.Drawing.Size(140, 47);
             this.btnViewLog.TabIndex = 4;
